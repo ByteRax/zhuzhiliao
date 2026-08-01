@@ -106,6 +106,23 @@
     box-shadow:0 0 26px rgba(226,96,63,.5);
   }
 
+  /* —— 首次开声引导(仅触屏 & 音频未解锁时) —— */
+  .unlock{
+    position:fixed; left:50%; top:26%; transform:translateX(-50%);
+    padding:12px 26px; border-radius:999px;
+    font-family:var(--serif); font-size:15px; letter-spacing:.2em;
+    color:#1b0f0a; background:var(--accent);
+    box-shadow:0 0 30px rgba(226,96,63,.55);
+    cursor:pointer; z-index:5; white-space:nowrap;
+    animation:pulse 1.8s ease-in-out infinite;
+    transition:opacity .5s ease;
+  }
+  .unlock.gone{ opacity:0; pointer-events:none; }
+  @keyframes pulse{
+    0%,100%{ transform:translateX(-50%) scale(1); }
+    50%{ transform:translateX(-50%) scale(1.06); }
+  }
+
   /* —— GitHub 开源角标 —— */
   .ghlink{
     position:fixed;
@@ -188,6 +205,8 @@
 <footer class="lore">竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣</footer>
 
 <a class="ghlink" href="https://github.com/imsai-sh/zhuzhiliao" target="_blank" rel="noopener">开源 GitHub</a>
+
+<div class="unlock" id="unlock" hidden>🔊 点一下开声</div>
 
 <div class="stats" id="stats" hidden>
   此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
@@ -948,6 +967,7 @@ function frame(now){
   if(hudTimer <= 0){
     hudTimer = 0.15;
     rpsEl.textContent = rps.toFixed(1);
+    syncUnlock();
   }
   requestAnimationFrame(frame);
 }
@@ -1050,11 +1070,29 @@ function release(e){
   pointer.down = false;
   pointer.id = null;
   cv.classList.remove('holding');
-  // 触摸输入的 user activation 在抬手(pointerup)才授予，在这里补一次音频解锁
   ensureAudio();
 }
 cv.addEventListener('pointerup', release);
 cv.addEventListener('pointercancel', release);
+
+// 音频解锁只认这些事件：Android Chrome 上触摸授予激活的是 touchend
+// (pointerup 在它之前派发、拿不到激活)，click/keydown 覆盖按钮和键盘
+['touchend', 'click', 'keydown'].forEach(type =>
+  document.addEventListener(type, () => ensureAudio(), { capture: true, passive: true }));
+
+// 首次开声引导：触屏设备且音频没在跑时显示，解锁后自动消失
+const unlockEl = document.getElementById('unlock');
+if('ontouchstart' in window) unlockEl.hidden = false;
+unlockEl.addEventListener('click', e => {
+  e.stopPropagation();
+  ensureAudio();          // click 自带激活，这里 resume 必然放行
+});
+function syncUnlock(){
+  if(!unlockEl.hidden && AC && AC.state === 'running'){
+    unlockEl.classList.add('gone');
+    setTimeout(() => { unlockEl.hidden = true; }, 600);
+  }
+}
 
 window.addEventListener('keydown', e => {
   if(e.code === 'Space' && !e.repeat){
