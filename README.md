@@ -2,6 +2,8 @@
 
 一转就"哇哇"叫的传统玩具，Web 模拟版。零依赖单文件，手机优先。
 
+**在线试玩：<https://zhuzhiliao.imsai.cc>**
+
 ![玩法](https://img.shields.io/badge/%E7%8E%A9%E6%B3%95-%E6%8C%89%E4%BD%8F%E7%94%BB%E5%9C%88%E7%94%A9%E8%B5%B7%E6%9D%A5-e2603f)
 
 ## 玩法
@@ -50,7 +52,26 @@ python3 -m http.server 8123
 
 ## 技术
 
-- 单文件 `index.html`：Canvas 2D 渲染 + Web Audio API，无任何依赖（含内嵌录音共约 62KB）
-- 移动端优先：安全区适配、绳长随屏幕缩放、拇指小圈即可甩响、多点触控互斥、`devicemotion` 体感模式
+- 单文件 `index.html`：Canvas 2D 渲染 + Web Audio API，无任何依赖（含内嵌录音）
+- 移动端优先：安全区适配、绳长随屏幕缩放、拇指小圈即可甩响（触摸时锚点自动上移避免手挡）、多点触控互斥、`devicemotion` 体感模式
 - 音频在首次触摸/点击时初始化，触摸在抬手时补解锁（user activation 规则）；iOS 的 `interrupted` 状态与旧内核 `roundRect` 均有兜底
 - 静态场景预合成为离屏层，静置 8 秒自动挂起音频线程省电
+
+## 实时计数
+
+页面底部有一行全站统计：**此刻在线 · 唯一来客 · 访问次数 · 全球哇数**，外加只存在浏览器
+localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自动甩不计。
+
+后端是 `worker/` 里的一个 Cloudflare Worker + 单实例 SQLite **Durable Object**：
+
+- **实时推送**：所有在线玩家挂在同一个 DO 的 WebSocket（Hibernation API）上，任何人甩出哇，
+  350ms 合并广播推给全场；挂机连接休眠零费用，心跳 ping/pong 由运行时自动应答不唤醒 DO
+- **同步策略**：客户端本地先累计，1.2s 批量走 WS 上报；页面关闭用 `sendBeacon` 兜底补报；
+  断线指数退避重连，重连不重复计访问
+- **成本控制**：计数在内存自增、2 秒合并落盘（SQLite 行写入有限额）；免费套餐足够跑
+- **防刷**：单连接哇数限速（10s 滑动窗口）、单条消息哇数上限、并发连接上限、
+  按 IP 的连接/补报频控、单连接 hi 去重
+- **路由**：`zhuzhiliao.imsai.cc/api/*` 走 zone route 进 Worker，其余流量走 Pages；
+  唯一访客用 localStorage 里的随机 UUID 在 DO 的 SQLite 表去重
+
+部署：`cd worker && npx wrangler deploy`（Pages 部署页面本体，Worker 承接 `/api/*`）。
