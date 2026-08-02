@@ -14,6 +14,9 @@
   data-vc-auth-key="vc_web_Kt9i5rZoGPGWQHRT5Kdy1Q8qOz4Y-97Pccs-RIdxLDg"
 ></script>
 <title>竹知了 · 一转就哇哇叫</title>
+<script type="importmap">
+{"imports":{ "three":"./3d/vendor/three.module.min.js" }}
+</script>
 <style>
   :root{
     --ink:#0a1028;
@@ -35,6 +38,11 @@
     touch-action:none; cursor:grab;
   }
   canvas#cv.holding{ cursor:grabbing; }
+  /* 3D 小蝉渲染层：叠在 2D 画布上，输入事件穿透给 #cv */
+  canvas#cv3d{
+    position:fixed; inset:0; display:block;
+    pointer-events:none;
+  }
 
   /* —— 竖排标题 —— */
   .masthead{
@@ -141,7 +149,6 @@
     transition:all .25s ease;
   }
   .ghlink:hover{ opacity:1; border-color:var(--accent); color:#ffcf9e; box-shadow:0 0 16px rgba(226,96,63,.25); }
-  .ghlink.link3d{ top:calc(64px + env(safe-area-inset-top)); }
 
   /* —— 底部统计行 —— */
   .stats{
@@ -187,6 +194,7 @@
 </head>
 <body>
 <canvas id="cv"></canvas>
+<canvas id="cv3d" style="display:none"></canvas>
 
 <header class="masthead">
   <h1>竹知了</h1>
@@ -207,12 +215,12 @@
   <div class="meter"><b id="rps">0.0</b><label>圈 / 秒</label></div>
   <button id="motionBtn" style="display:none">甩手机</button>
   <button id="autoBtn">自动甩</button>
+  <button id="d3Btn" style="display:none">3D 小蝉</button>
 </div>
 
 <footer class="lore">竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣</footer>
 
 <a class="ghlink" href="https://github.com/imsai-sh/zhuzhiliao" target="_blank" rel="noopener">开源 GitHub</a>
-<a class="ghlink link3d" href="3d/">3D 模型</a>
 
 <div class="unlock" id="unlock" hidden>🔊 点一下开声</div>
 
@@ -338,6 +346,7 @@ function resize(){
   buildBgLayer();
   buildMoonBambooLayer();
   buildFgLayer();
+  if(typeof toy3d !== 'undefined' && toy3d) toy3d.resize(W, H, DPR, toyScale());
 }
 
 function newLayer(){
@@ -845,7 +854,12 @@ function draw(now, dt){
     ctx.globalAlpha = 1;
   }
 
-  drawToy(now);
+  if(use3d){
+    toy3d.render({ now, stick, tube, ropeLen: ROPE_LEN, ropeDist,
+                   omega, active, stickTilt: STICK_TILT3D });
+  }else{
+    drawToy(now);
+  }
 
   // 飘出的「哇」
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -1008,6 +1022,35 @@ let last = performance.now();
 let hudTimer = 0;
 const rpsEl = document.getElementById('rps');
 const autoBtn = document.getElementById('autoBtn');
+
+/* —— 3D 小蝉渲染层（可选增强）——
+   动态 import：HTTP 下加载 vendored three.js 换上 3D 模型；
+   file:// 直开、WebGL 不可用或加载失败时静默回落 2D 手绘，承诺不破。 */
+const cv3d = document.getElementById('cv3d');
+const d3Btn = document.getElementById('d3Btn');
+let toy3d = null, use3d = false;
+let want3d = true;
+try{ want3d = localStorage.getItem('zzl_3d') !== '0'; }catch(_){}
+const STICK_TILT3D = Math.PI/2 - 1.15;   // 与 2D 版杆倾角一致（屏幕系→世界系换算）
+function toyScale(){ return clamp(Math.min(W, H)*0.155, 64, 88); }  // 筒身高对应像素
+function set3d(on){
+  use3d = !!(on && toy3d);
+  d3Btn.classList.toggle('on', use3d);
+  d3Btn.textContent = use3d ? '手绘小蝉' : '3D 小蝉';
+  cv3d.style.display = use3d ? '' : 'none';
+  try{ localStorage.setItem('zzl_3d', use3d ? '1' : '0'); }catch(_){}
+}
+import('./3d/boot3d.js').then(m => {
+  toy3d = m.init(cv3d);
+  if(!toy3d) return;
+  toy3d.resize(W, H, DPR, toyScale());
+  d3Btn.style.display = '';
+  set3d(want3d);
+}).catch(() => {});
+d3Btn.addEventListener('click', e => {
+  e.stopPropagation();
+  set3d(!use3d);
+});
 
 function frame(now){
   // 有些嵌入环境不派发 resize 事件，每帧自查尺寸变化
@@ -1288,6 +1331,10 @@ resize();   // 内部会把竹筒挂到屏幕中央，轻轻晃着
 window.__zzl = {
   get state(){ return { rps, active, drive, taut, theta,
     audio: AC ? AC.state : 'none', voice: au ? au.mode : null }; },
+  step(dt = 1/60){   // 手动步进一帧（rAF 被冻结的嵌入环境里做自动化验证用）
+    update(dt);
+    draw(performance.now()/1000, dt);
+  },
   rms(){
     if(!au) return 0;
     const buf = new Float32Array(au.analyser.fftSize);

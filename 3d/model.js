@@ -90,6 +90,7 @@ function makeMaterials() {
   const bambooMembrane = new THREE.MeshPhysicalMaterial({
     color: 0xf3e2b4, map: grainMembrane, roughnessMap: grainRough, roughness: 1.0,
     metalness: 0, envMapIntensity: 0.5,
+    emissive: 0xffcf8e, emissiveIntensity: 0.0, // 发声时透光（由 setSing 驱动）
   });
   const red = new THREE.MeshPhysicalMaterial({
     color: 0x9d150b, roughness: 0.24, metalness: 0,
@@ -269,7 +270,10 @@ export function createZhuzhiliaoModel(options = {}) {
     root.worldToLocal(a); root.worldToLocal(b);
     const state = root.userData._state;
     let curve;
-    if (state && state.mode === 'whirl') {
+    if (state && state.mode === 'driven') {
+      // 外部物理驱动：松则垂、紧则直，垂度由主页面按绳长差传入
+      curve = new THREE.CatmullRomCurve3(catenaryPoints(a, b, Math.max(0.01, state.sag || 0)));
+    } else if (state && state.mode === 'whirl') {
       curve = new THREE.CatmullRomCurve3(catenaryPoints(a, b, 0.01));
     } else {
       // 依三视图走线：入鼓面处近垂直下坠，靠近珠串处向外弯出
@@ -324,7 +328,37 @@ export function createZhuzhiliaoModel(options = {}) {
       bodyPivot.rotation.set(0, 0, 0);
     }
   };
+  // —— 外部物理驱动（主站甩动模拟接管摆位；本函数只管翅膀/绳/位姿映射） ——
+  // pose: { stick:{x,y}, tube:{x,y}, headAngle, spin, tilt, stickTilt, flutter, spread, sag }
+  // 坐标为模型世界单位（主站负责像素→世界换算），z 恒为 0 平面。
+  root.userData.drivePose = (pose, t) => {
+    state.mode = 'driven';
+    state.sag = pose.sag;
+    // 甩杆：杆梢(线结处 stick-waist 插孔)钉在锚点，杆身固定倾角
+    const waist = sockets['stick-waist'].position;
+    handle.rotation.set(0, 0, pose.stickTilt);
+    const c = Math.cos(pose.stickTilt), s = Math.sin(pose.stickTilt);
+    handle.position.set(
+      pose.stick.x - (waist.x * c - waist.y * s),
+      pose.stick.y - (waist.x * s + waist.y * c),
+      0);
+    handle.rotation.x = 0;
+    // 蝉体：枢轴(鼓面线结)在绳末端，头朝绳方向；绕绳轴自旋 + 少量出屏倾斜增加立体感
+    bodyPivot.position.set(pose.tube.x, pose.tube.y, 0);
+    bodyPivot.rotation.set(pose.tilt, pose.spin, pose.headAngle, 'ZYX');
+    // 翅膀：张开度 + 高频扑动（与 2D 版同一驱动量）
+    nodes['wing-left-pivot'].rotation.x = 0.17 + pose.spread + pose.flutter;
+    nodes['wing-right-pivot'].rotation.x = 0.17 + pose.spread + pose.flutter * 0.85;
+    root.updateMatrixWorld(true);
+    rebuildString();
+  };
+  // 发声强度 → 鼓面透光
+  root.userData.setSing = (v) => {
+    meshes['membrane-top'].material.emissiveIntensity = v * 0.85;
+  };
+
   root.userData.tick = (dt, t) => {
+    if (state.mode === 'driven') return; // 外部驱动时主循环不再自演
     state.t = t;
     const flutterA = state.mode === 'whirl' ? 0.35 : 0.02;
     const flutterF = state.mode === 'whirl' ? 34 : 2.1;
