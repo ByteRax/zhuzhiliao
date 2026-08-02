@@ -308,9 +308,11 @@ function mulberry32(seed){
 }
 
 function resize(){
+  // 面板折叠/键盘弹出/嵌入环境会瞬时报 0：直接跳过本次，等尺寸恢复再重建，
+  // 否则 1×1 的画布会把玩具永久夹到左上角（interacted 后不再回中）
+  if(!(window.innerWidth > 0 && window.innerHeight > 0)) return;
   DPR = Math.min(2, window.devicePixelRatio || 1);
-  // 某些 webview 布局前会短暂报 0，兜底成 1 避免 0 尺寸画布抛异常
-  W = Math.max(1, window.innerWidth); H = Math.max(1, window.innerHeight);
+  W = window.innerWidth; H = window.innerHeight;
   cv.width = W * DPR; cv.height = H * DPR;
   cv.style.width = W + 'px'; cv.style.height = H + 'px';
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -855,7 +857,7 @@ function draw(now, dt){
   }
 
   if(use3d){
-    toy3d.render({ now, stick, tube, ropeLen: ROPE_LEN, ropeDist,
+    toy3d.render({ now, dt, stick, tube, ropeLen: ROPE_LEN, ropeDist,
                    omega, active, stickTilt: STICK_TILT3D });
   }else{
     drawToy(now);
@@ -1053,8 +1055,9 @@ d3Btn.addEventListener('click', e => {
 });
 
 function frame(now){
-  // 有些嵌入环境不派发 resize 事件，每帧自查尺寸变化
-  if(Math.max(1, window.innerWidth) !== W || Math.max(1, window.innerHeight) !== H) resize();
+  // 有些嵌入环境不派发 resize 事件，每帧自查尺寸变化（0 尺寸视为瞬态，忽略）
+  if(window.innerWidth > 0 &&
+     (window.innerWidth !== W || window.innerHeight !== H)) resize();
   // rAF 出现大间隙说明页面被冻结过(部分 WebView 不派发 visibilitychange)，宽限期重置
   if(now - last > 1000) acAdvanceWall = performance.now();
   const dt = Math.min(0.05, (now - last)/1000) || 0.016;
@@ -1330,6 +1333,8 @@ resize();   // 内部会把竹筒挂到屏幕中央，轻轻晃着
 // 调试钩子（供自动化验证）
 window.__zzl = {
   get state(){ return { rps, active, drive, taut, theta,
+    stick: { x: stick.x, y: stick.y }, tube: { x: tube.x, y: tube.y },
+    target: { x: target.x, y: target.y }, auto: auto.on,
     audio: AC ? AC.state : 'none', voice: au ? au.mode : null }; },
   step(dt = 1/60){   // 手动步进一帧（rAF 被冻结的嵌入环境里做自动化验证用）
     update(dt);

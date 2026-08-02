@@ -346,9 +346,9 @@ export function createZhuzhiliaoModel(options = {}) {
     // 蝉体：枢轴(鼓面线结)在绳末端，头朝绳方向；绕绳轴自旋 + 少量出屏倾斜增加立体感
     bodyPivot.position.set(pose.tube.x, pose.tube.y, 0);
     bodyPivot.rotation.set(pose.tilt, pose.spin, pose.headAngle, 'ZYX');
-    // 翅膀：张开度 + 高频扑动（与 2D 版同一驱动量）
-    nodes['wing-left-pivot'].rotation.x = 0.17 + pose.spread + pose.flutter;
-    nodes['wing-right-pivot'].rotation.x = 0.17 + pose.spread + pose.flutter * 0.85;
+    // 翅膀：左右各自的铰链角由外部动力学给出（跟随晃动、气流张开、高频振翅）
+    nodes['wing-left-pivot'].rotation.x = pose.wingL;
+    nodes['wing-right-pivot'].rotation.x = pose.wingR;
     root.updateMatrixWorld(true);
     rebuildString();
   };

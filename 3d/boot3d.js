@@ -7,6 +7,9 @@
 import * as THREE from 'three';
 import { createZhuzhiliaoModel } from './model.js';
 
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const clampDt = (dt) => (dt > 0 && dt < 0.05 ? dt : 0);
+
 export function init(canvas) {
   let renderer;
   try {
@@ -52,6 +55,10 @@ export function init(canvas) {
   const px2wy = (y) => H / 2 - y;
 
   let spin = 0, lastT = 0;
+  // 翅膀铰链小动力学：弹簧-阻尼跟随（晃动时有滞后和过冲，慢晃也活）
+  const wingL = { a: 0.15, v: 0 }, wingR = { a: 0.15, v: 0 };
+  let prevOmega = 0;
+  const WING_STIFF = 80, WING_DAMP = 9;
 
   return {
     // 主站 resize 时同步；SCALE = 一个模型单位(筒身高)对应的屏幕像素
@@ -64,9 +71,9 @@ export function init(canvas) {
       applyCamera();
     },
 
-    // 每帧驱动：state 直接取主站物理量（像素坐标）
+    // 每帧驱动：state 直接取主站物理量（像素坐标；tube 自带 vx/vy）
     render(st) {
-      const dt = Math.min(0.05, st.now - lastT) || 0.016;
+      const dt = clampDt(st.dt) || Math.min(0.05, st.now - lastT) || 0.016;
       lastT = st.now;
 
       const sx = px2wx(st.stick.x) / SCALE, sy = px2wy(st.stick.y) / SCALE;
@@ -76,9 +83,25 @@ export function init(canvas) {
       const headAngle = Math.atan2(sy - ty, sx - tx) - Math.PI / 2;
       // 甩得越快绕绳轴自旋越快，静止时缓慢回摆
       spin += (st.omega * 0.45 + Math.sin(st.now * 0.6) * 0.15) * dt;
-      // 2D 版同款翅膀驱动：spread = 0.30+active*0.38，flutter = active*sin(46t)*0.22
-      const spread = 0.10 + st.active * 0.50;
-      const flutter = st.active * Math.sin(st.now * 46) * 0.25;
+
+      // —— 翅膀跟随晃动 ——
+      // 气流吹开：随穿行速度张开；晃动跟随：绳向角加速度让左右翅一先一后甩尾；
+      // 弹簧-阻尼积分产生滞后与过冲；高速时再叠高频振翅。
+      const speed = Math.hypot(st.tube.vx || 0, st.tube.vy || 0) / SCALE;
+      const alpha = clamp((st.omega - prevOmega) / dt, -60, 60);
+      prevOmega = st.omega;
+      const rest = 0.15 + Math.min(0.85, speed * 0.16)
+                 + Math.sin(st.now * 2.1) * 0.02;          // 静置时轻微呼吸
+      const kick = alpha * 0.016;                          // 甩尾激励（左右反相）
+      const stepWing = (w, force) => {
+        w.v += ((force - w.a) * WING_STIFF - w.v * WING_DAMP) * dt;
+        w.a += w.v * dt;
+        return w.a;
+      };
+      const flutter = Math.min(1, speed * 0.10 + st.active) * Math.sin(st.now * 46) * 0.22;
+      const wl = stepWing(wingL, rest - kick) + flutter;
+      const wr = stepWing(wingR, rest + kick) + flutter * 0.85;
+
       // 绳松弛量 → 垂度（换算成模型单位）
       const sag = Math.max(0, (st.ropeLen - st.ropeDist) * 0.55) / SCALE;
 
@@ -89,7 +112,7 @@ export function init(canvas) {
         spin,
         tilt: 0.14 + st.active * 0.10,   // 轻微出屏倾斜，转快时更立体
         stickTilt: st.stickTilt,
-        spread, flutter, sag,
+        wingL: wl, wingR: wr, sag,
       }, st.now);
       model.userData.setSing(st.active);
 
