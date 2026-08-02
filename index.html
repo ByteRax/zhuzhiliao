@@ -59,7 +59,7 @@
   }
   .masthead h1{
     writing-mode:vertical-rl;
-    font-size:clamp(42px, 7.5vh, 66px);
+    font-size:clamp(30px, 5.4vh, 46px);
     font-weight:700; letter-spacing:.32em;
     text-shadow:0 0 24px rgba(255,170,100,.25);
   }
@@ -155,7 +155,7 @@
   }
   .ghlink:hover{ opacity:1; border-color:var(--accent); color:#ffcf9e; box-shadow:0 0 16px rgba(226,96,63,.25); }
   .ghlink.author{ top:calc(64px + env(safe-area-inset-top)); }
-  .ghlink.install{ top:calc(104px + env(safe-area-inset-top)); display:none; cursor:pointer; }
+  .ghlink.install{ top:calc(104px + env(safe-area-inset-top)); cursor:pointer; }
 
   /* —— iOS 添加到主屏幕指引 —— */
   .installtip{
@@ -175,16 +175,26 @@
     position:fixed; left:50%; bottom:calc(8px + env(safe-area-inset-bottom));
     transform:translateX(-50%);
     font-family:var(--serif); font-size:11px; letter-spacing:.14em;
-    color:var(--paper); opacity:.55; white-space:nowrap;
+    color:rgba(240,230,210,.55); white-space:nowrap;
     pointer-events:none;
   }
-  .stats b{ font-weight:700; color:#ffcf9e; font-variant-numeric:tabular-nums; display:inline-block; }
-  .stats b.hot{ color:#ffb36b; text-shadow:0 0 12px rgba(255,150,80,.85); }
-  #stMine.minepop{ animation:minepop .45s cubic-bezier(.2,1.6,.4,1); }
+  .stats b{ font-weight:700; color:rgba(255,207,158,.62); font-variant-numeric:tabular-nums; display:inline-block; }
+  /* —— 「我 X 哇」整体动效：转动时三字齐亮齐放大，每哇弹跳一次 —— */
+  .stats .mine{
+    display:inline-block; transform-origin:center;
+    transition:transform .35s ease, color .35s ease, text-shadow .35s ease;
+  }
+  .stats .mine b{ transition:color .35s ease, text-shadow .35s ease; }
+  .stats .mine.hot{
+    color:#ffb36b; transform:scale(1.22);
+    text-shadow:0 0 10px rgba(255,150,80,.55);
+  }
+  .stats .mine.hot b{ color:#ffd08a; text-shadow:0 0 16px rgba(255,160,90,.95); }
+  .stats .mine.minepop{ animation:minepop .5s cubic-bezier(.2,1.6,.4,1); }
   @keyframes minepop{
-    0%{ transform:scale(1); }
-    35%{ transform:scale(1.65); color:#ff8a50; text-shadow:0 0 18px rgba(255,150,80,1); }
-    100%{ transform:scale(1); }
+    0%{ transform:scale(1.22); }
+    35%{ transform:scale(1.7); }
+    100%{ transform:scale(1.22); }
   }
   .stats b.wahflash{ animation:wahflash .5s ease; }
   @keyframes wahflash{ 0%{ color:#ff8a50; text-shadow:0 0 12px rgba(255,138,80,.8); } 100%{} }
@@ -257,7 +267,7 @@
 
 <div class="stats" id="stats" hidden>
   此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
-  · 全球 <b id="stWahs">–</b> 哇 · 我 <b id="stMine">0</b> 哇
+  · 全球 <b id="stWahs">–</b> 哇 · <span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
 </div>
 
 <script>
@@ -770,6 +780,7 @@ function update(dt){
   if(wantSound && AC && AC.state !== 'running') needSoundTime += dt;
   else needSoundTime = 0;
 
+  stEls.mineWrap.classList.toggle('hot', active > 0.3);
   if(active > 0.3){
     singTime += dt;
     if(!hintGone && singTime > 1.0){
@@ -798,7 +809,7 @@ function spawnFx(dt){
     ripples.push({ x: tube.x, y: tube.y, r: 16, age: 0, life: 0.7, str: active });
   }
   if(active > 0.3 && cryTimer <= 0 && cries.length < 36){
-    cryTimer = 0.17;
+    cryTimer = 0.22;
     const ux = (tube.x - stick.x)/(ropeDist || 1);
     const uy = (tube.y - stick.y)/(ropeDist || 1);
     const sgn = omega >= 0 ? 1 : -1;
@@ -808,7 +819,7 @@ function spawnFx(dt){
     cries.push({
       x: tube.x + ux*14, y: tube.y + uy*14,
       vx: tx*sp + ux*30, vy: ty*sp + uy*30 - 20,
-      age: 0, life: 1.4,
+      age: 0, life: 1.1,
       size: 20 + 30*active,
       rot: (Math.random() - 0.5)*0.8
     });
@@ -901,7 +912,7 @@ function draw(now, dt){
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rot*t);
-    ctx.globalAlpha = (1 - t*t)*0.95;
+    ctx.globalAlpha = (1 - t)*(1 - t)*0.95;
     ctx.font = `${(p.size*(1 + 0.5*t)).toFixed(1)}px ${FONT}`;
     ctx.shadowColor = 'rgba(255,150,60,0.9)';
     ctx.shadowBlur = 18*(1 - t);
@@ -1102,7 +1113,6 @@ function frame(now){
   if(hudTimer <= 0){
     hudTimer = 0.15;
     rpsEl.textContent = rps.toFixed(1);
-    stEls.mine.classList.toggle('hot', active > 0.3);
     syncUnlock();
   }
   requestAnimationFrame(frame);
@@ -1273,6 +1283,7 @@ const stEls = {
   visits: document.getElementById('stVisits'),
   wahs: document.getElementById('stWahs'),
   mine: document.getElementById('stMine'),
+  mineWrap: document.getElementById('stMineWrap'),
 };
 
 let uid = '', myWah = 0;
@@ -1349,9 +1360,9 @@ let mySaveTimer = 0;
 function addWah(n){
   myWah += n; pendingWah += n;
   renderMine();
-  stEls.mine.classList.remove('minepop');
-  void stEls.mine.offsetWidth;          // 重启动画
-  stEls.mine.classList.add('minepop');
+  stEls.mineWrap.classList.remove('minepop');
+  void stEls.mineWrap.offsetWidth;      // 重启动画
+  stEls.mineWrap.classList.add('minepop');
   if(!mySaveTimer){
     mySaveTimer = setTimeout(() => {
       mySaveTimer = 0;
@@ -1369,16 +1380,14 @@ const installBtn = document.getElementById('installBtn');
 (function(){
   const standalone = matchMedia('(display-mode: standalone)').matches
                   || navigator.standalone === true;
-  if(standalone) return;                 // 已经在桌面 app 里，不再显示
+  if(standalone){ installBtn.style.display = 'none'; return; }  // 已在桌面 app 里
   let deferredPrompt = null;
   window.addEventListener('beforeinstallprompt', e => {
     e.preventDefault();
     deferredPrompt = e;
-    installBtn.style.display = '';
   });
   const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
              || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if(isIOS) installBtn.style.display = '';
   let tip = null;
   installBtn.addEventListener('click', async e => {
     e.stopPropagation();
@@ -1392,7 +1401,9 @@ const installBtn = document.getElementById('installBtn');
     if(tip){ tip.remove(); tip = null; return; }
     tip = document.createElement('div');
     tip.className = 'installtip';
-    tip.innerHTML = '用 Safari 打开本页<br>点分享 <b>&#x2191;</b> → 「添加到主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>';
+    tip.innerHTML = isIOS
+      ? '用 Safari 打开本页<br>点分享 <b>&#x2191;</b> → 「添加到主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>'
+      : 'Chrome / Edge：菜单 → 「安装应用」<br>Safari：分享 → 「添加到程序坞/主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>';
     tip.addEventListener('click', () => { tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); });
     document.body.appendChild(tip);
     setTimeout(() => { if(tip){ tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); } }, 8000);
