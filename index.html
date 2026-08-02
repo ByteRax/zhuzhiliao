@@ -1375,6 +1375,11 @@ stEls.root.hidden = false;
 renderMine();
 wsConnect();
 
+/* —— Service Worker：安卓 Chrome 的安装提示以此为门槛，顺带离线可玩 —— */
+if('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:'){
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 /* —— 装进桌面（PWA 安装 / iOS 添加到主屏幕指引） —— */
 const installBtn = document.getElementById('installBtn');
 (function(){
@@ -1386,6 +1391,7 @@ const installBtn = document.getElementById('installBtn');
     e.preventDefault();
     deferredPrompt = e;
   });
+  window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
   const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
              || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   let tip = null;
@@ -1403,7 +1409,7 @@ const installBtn = document.getElementById('installBtn');
     tip.className = 'installtip';
     tip.innerHTML = isIOS
       ? '用 Safari 打开本页<br>点分享 <b>&#x2191;</b> → 「添加到主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>'
-      : 'Chrome / Edge：菜单 → 「安装应用」<br>Safari：分享 → 「添加到程序坞/主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>';
+      : '安卓 Chrome/Edge：菜单 &#8942; → 「安装应用」或「添加到主屏幕」<br>桌面 Chrome：地址栏右侧安装图标<br>Safari：分享 → 「添加到程序坞/主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>';
     tip.addEventListener('click', () => { tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); });
     document.body.appendChild(tip);
     setTimeout(() => { if(tip){ tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); } }, 8000);
