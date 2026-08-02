@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 开发流程和注意事项
 - 禁止擅自push到远程oss
-- 在独立branch/worktree开发完毕之后，将局域网可验证的网址链接展示给用户审核(每个 worktree 用随机端口，否则会产生冲突)，审核通过后才能合并到main，然后deploy到cloudflare
+- 在独立branch/worktree开发完毕之后，将局域网可验证的https网址链接展示给用户审核(每个 worktree 用随机端口，否则会产生冲突)，审核通过后才能合并到main，然后deploy到cloudflare
 
 ## 常用命令
 
