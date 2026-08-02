@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0a1028">
+<meta name="description" content="竹知了 3D 模型 —— 纯代码程序化重建，可旋转、可甩动、可拆解">
+<title>竹知了 · 3D 模型</title>
+<style>
+  :root{
+    --ink:#0a1028;
+    --paper:#f0e6d2;
+    --accent:#e2603f;
+    --accent-dim:#b34a30;
+    --bamboo:#a8b06a;
+    --serif:"Songti SC","Noto Serif SC","Noto Serif CJK SC","STSong","SimSun",serif;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html,body{
+    height:100%; overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 38%, #141c40 0%, var(--ink) 62%, #060a1c 100%);
+    overscroll-behavior:none;
+    -webkit-user-select:none; user-select:none;
+    -webkit-tap-highlight-color:transparent;
+  }
+  canvas#cv{
+    position:fixed; inset:0; display:block;
+    touch-action:none; cursor:grab;
+  }
+  canvas#cv.holding{ cursor:grabbing; }
+
+  /* —— 竖排标题（与主页同款） —— */
+  .masthead{
+    position:fixed;
+    top:calc(26px + env(safe-area-inset-top));
+    left:calc(20px + env(safe-area-inset-left));
+    display:flex; gap:14px; pointer-events:none;
+    color:var(--paper); font-family:var(--serif); z-index:3;
+  }
+  .masthead h1{
+    writing-mode:vertical-rl;
+    font-size:clamp(34px, 6vh, 54px);
+    font-weight:700; letter-spacing:.32em;
+    text-shadow:0 0 24px rgba(255,170,100,.25);
+  }
+  .masthead .sub{
+    writing-mode:vertical-rl;
+    font-size:clamp(12px, 1.8vh, 15px);
+    letter-spacing:.5em; opacity:.62; padding-top:10px;
+  }
+
+  /* —— 回主页角标 —— */
+  .backlink{
+    position:fixed;
+    top:calc(24px + env(safe-area-inset-top));
+    right:calc(20px + env(safe-area-inset-right));
+    font-family:var(--serif); font-size:12px; letter-spacing:.26em;
+    color:var(--paper); opacity:.55; text-decoration:none;
+    border:1px solid rgba(240,230,210,.35); border-radius:999px;
+    padding:6px 12px 6px 15px; z-index:3;
+    transition:all .25s ease;
+  }
+  .backlink:hover{ opacity:1; border-color:var(--accent); color:#ffcf9e; box-shadow:0 0 16px rgba(226,96,63,.25); }
+
+  /* —— 底部按钮 —— */
+  .panel{
+    position:fixed; left:50%; bottom:calc(30px + env(safe-area-inset-bottom));
+    transform:translateX(-50%);
+    display:flex; gap:12px; z-index:3;
+  }
+  .panel button{
+    font-family:var(--serif); font-size:14px; letter-spacing:.3em;
+    padding:10px 18px 10px 22px; border-radius:999px;
+    color:var(--paper); background:rgba(14,20,44,.55);
+    border:1px solid rgba(226,96,63,.55);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    cursor:pointer; transition:all .25s ease;
+    touch-action:manipulation;
+  }
+  .panel button:hover{ border-color:var(--accent); box-shadow:0 0 18px rgba(226,96,63,.25); }
+  .panel button.on{
+    background:var(--accent); border-color:var(--accent); color:#1b0f0a;
+    box-shadow:0 0 26px rgba(226,96,63,.5);
+  }
+  .panel button.pulse{ animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.06); }
+  }
+
+  /* —— 操作提示 / 部件名 —— */
+  .hint{
+    position:fixed; left:50%; top:calc(30px + env(safe-area-inset-top));
+    transform:translateX(-50%);
+    font-family:var(--serif); font-size:12px; letter-spacing:.22em;
+    color:var(--paper); opacity:.5; z-index:2; white-space:nowrap;
+    transition:opacity .6s ease;
+  }
+  .hint.gone{ opacity:0; }
+  .partname{
+    position:fixed;
+    left:calc(22px + env(safe-area-inset-left));
+    bottom:calc(22px + env(safe-area-inset-bottom));
+    font-family:var(--serif); font-size:12.5px; letter-spacing:.24em;
+    color:#ffcf9e; opacity:0; line-height:2; z-index:2;
+    text-shadow:0 0 12px rgba(255,180,110,.3);
+    transition:opacity .35s ease; pointer-events:none;
+  }
+  .partname.show{ opacity:.9; }
+
+  @media (max-width:640px){
+    .masthead h1{ font-size:clamp(28px, 5vh, 40px); }
+    .backlink{ font-size:10.5px; padding:5px 10px 5px 13px; }
+    .panel{ gap:8px; }
+    .panel button{ font-size:12.5px; letter-spacing:.14em; padding:9px 13px 9px 15px; white-space:nowrap; }
+    .hint{
+      font-size:10.5px; white-space:nowrap; text-align:center;
+      top:auto; bottom:calc(92px + env(safe-area-inset-bottom));
+    }
+  }
+</style>
+<script type="importmap">
+{"imports":{ "three":"./vendor/three.module.min.js" }}
+</script>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<div class="masthead">
+  <h1>竹知了</h1>
+  <div class="sub">三维 · 可把玩</div>
+</div>
+
+<a class="backlink" href="../">← 回去甩它</a>
+
+<div class="hint" id="hint">拖动旋转 · 双指缩放 · 点击看部件</div>
+
+<div class="panel">
+  <button id="whirlBtn" class="pulse">🌀 转起来</button>
+  <button id="explodeBtn">拆开看</button>
+</div>
+
+<div class="partname" id="partname"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from './vendor/OrbitControls.js';
+import { createZhuzhiliaoModel } from './model.js';
+
+const canvas = document.getElementById('cv');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene(); // 背景透明，由 CSS 墨色渐变承担
+
+// 暖主光 + 冷补光 + 暖轮廓光：让竹色在墨色底上发亮
+const hemi = new THREE.HemisphereLight(0xfff2e0, 0x1a2038, 0.5);
+scene.add(hemi);
+const key = new THREE.DirectionalLight(0xffe8cc, 2.0);
+key.position.set(-2.2, 4.2, 3.2);
+key.castShadow = true;
+key.shadow.mapSize.set(1024, 1024);
+key.shadow.radius = 6;
+key.shadow.camera.left = -3; key.shadow.camera.right = 3;
+key.shadow.camera.top = 4;  key.shadow.camera.bottom = -2;
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xbdd0ff, 0.35);
+fill.position.set(2.6, 1.2, 2.8);
+scene.add(fill);
+const rim = new THREE.DirectionalLight(0xffb27a, 0.9);
+rim.position.set(0.6, 2.0, -3.0);
+scene.add(rim);
+
+// 地面只接影
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.35 }));
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -0.66;
+ground.receiveShadow = true;
+scene.add(ground);
+
+const model = createZhuzhiliaoModel();
+scene.add(model);
+
+const camera = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.01, 100);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.minDistance = 1.6;
+controls.maxDistance = 12;
+controls.maxPolarAngle = Math.PI * 0.62;
+controls.target.set(0.31, 0.62, 0);
+camera.position.set(2.6, 1.5, 4.6);
+controls.autoRotate = true;           // 无操作时缓慢展台旋转
+controls.autoRotateSpeed = 0.8;
+
+const hint = document.getElementById('hint');
+let interacted = false;
+controls.addEventListener('start', () => {
+  interacted = true;
+  controls.autoRotate = false;
+  canvas.classList.add('holding');
+  hint.classList.add('gone');
+});
+controls.addEventListener('end', () => canvas.classList.remove('holding'));
+
+// —— 模式按钮 ——
+const whirlBtn = document.getElementById('whirlBtn');
+const explodeBtn = document.getElementById('explodeBtn');
+let whirling = false, exploded = 0;
+whirlBtn.addEventListener('click', () => {
+  whirling = !whirling;
+  if (whirling && exploded) { exploded = 0; model.userData.setExplode(0); explodeBtn.classList.remove('on'); }
+  model.userData.setMode(whirling ? 'whirl' : 'idle');
+  whirlBtn.classList.toggle('on', whirling);
+  whirlBtn.classList.remove('pulse');
+  whirlBtn.textContent = whirling ? '🌀 转着呢' : '🌀 转起来';
+});
+explodeBtn.addEventListener('click', () => {
+  exploded = exploded ? 0 : 0.8;
+  if (exploded && whirling) { whirling = false; model.userData.setMode('idle'); whirlBtn.classList.remove('on'); whirlBtn.textContent = '🌀 转起来'; }
+  model.userData.setExplode(exploded);
+  explodeBtn.classList.toggle('on', !!exploded);
+  explodeBtn.textContent = exploded ? '装回去' : '拆开看';
+});
+
+// —— 点击报部件名 ——
+const PART_NAMES = {
+  'tube-shell': '竹筒 · 共鸣腔', 'tube-underside': '筒底', 'rim-cap': '红漆顶圈',
+  'membrane-top': '竹膜鼓面', 'string-knot': '膜心线结',
+  'eye-left': '左眼', 'eye-right': '右眼',
+  'wing-left': '左翅', 'wing-right': '右翅',
+  'wing-pin-left': '左翅销钉', 'wing-pin-right': '右翅销钉',
+  'foot-left': '左脚', 'foot-right': '右脚',
+  'stick-shaft': '甩杆', 'knob-sphere-top': '杆头红球（上）',
+  'spacer-rondelle': '琥珀隔珠', 'knob-sphere-lower': '杆头红球（下）',
+  'string': '松香线',
+};
+const ray = new THREE.Raycaster();
+const partEl = document.getElementById('partname');
+let partTimer = 0;
+let downXY = null;
+canvas.addEventListener('pointerdown', e => { downXY = [e.clientX, e.clientY]; });
+canvas.addEventListener('pointerup', (e) => {
+  if (!downXY) return;
+  const moved = Math.hypot(e.clientX - downXY[0], e.clientY - downXY[1]);
+  downXY = null;
+  if (moved > 6) return; // 拖动不算点击
+  const p = new THREE.Vector2((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(p, camera);
+  const hits = ray.intersectObjects(model.children, true);
+  const hit = hits.find(h => h.object.name && PART_NAMES[h.object.name]);
+  if (hit) {
+    partEl.textContent = PART_NAMES[hit.object.name];
+    partEl.classList.add('show');
+    clearTimeout(partTimer);
+    partTimer = setTimeout(() => partEl.classList.remove('show'), 2200);
+  }
+});
+
+// —— 尺寸 / 主循环 ——
+function resize() {
+  renderer.setSize(innerWidth, innerHeight); // 同步更新 canvas CSS 尺寸
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  // 竖屏时按横向视场拉远相机，保证整只玩具在画面内（保留用户当前观察方向）
+  const vHalf = Math.tan((camera.fov / 2) * Math.PI / 180);
+  const hHalf = vHalf * camera.aspect;
+  const need = Math.max(1.45 / vHalf, 1.15 / hHalf);
+  const dir = camera.position.clone().sub(controls.target);
+  if (dir.length() < need) {
+    camera.position.copy(controls.target).addScaledVector(dir.normalize(), need);
+  }
+}
+addEventListener('resize', resize);
+resize();
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  controls.update();
+  model.userData.tick(clock.getDelta(), clock.elapsedTime);
+  renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>
