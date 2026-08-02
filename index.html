@@ -280,6 +280,7 @@ let rps = 0, drive = 0, active = 0;       // 声音驱动量 0~1
 let singTime = 0, hintGone = false;
 let idleTime = 0;                         // 完全静置的累计时长
 let revAccum = 0;                         // 手动甩的角度累计(每 2π 记一哇)
+let needSoundTime = 0;                    // "想出声却出不了"的持续时长
 
 /* ---------- 场景缓存(随 resize 重建为离屏层，避免每帧全屏静态重绘) ---------- */
 let bgLayer = null, moonBambooLayer = null, fgLayer = null;
@@ -452,7 +453,26 @@ const ZZL_SAMPLE = 'AAAAHGZ0eXBNNEEgAAACAE00QSBpc29taXNvMgAAAAhmcmVlAABT4W1kYXTe
 const RECORDED_RPS = 2.33;      // 录音里玩具的甩速(圈/秒)，由包络自相关测得
 let AC = null, au = null;       // au.mode: null(加载中) | 'sample' | 'synth'
 
-function ensureAudio(){
+// 音频心跳：iOS 从后台切回后，上下文可能"状态 running 却无声"
+// (currentTime 停走，输出管线已被系统回收)，这种僵尸只能拆掉重建
+let acTimeLast = 0, acAdvanceWall = 0;
+let acRebuilds = [];            // 最近自动重建时间戳：限频，防拆建循环
+let sampleBytes = null;         // base64 只解一次，重建时复用
+function audioStalled(){
+  return !!AC && AC.state === 'running' && !document.hidden
+      && acAdvanceWall > 0 && performance.now() - acAdvanceWall > 1500;
+}
+
+function ensureAudio(fromGesture){
+  if(AC && (AC.state === 'closed' || audioStalled())){
+    const now = performance.now();
+    acRebuilds = acRebuilds.filter(ts => now - ts < 60000);
+    if(!fromGesture && acRebuilds.length >= 3) return;   // 无手势自动重建 60s 限 3 次
+    acRebuilds.push(now);
+    try{ AC.close(); }catch(_){}
+    AC = null; au = null;
+    acTimeLast = 0; acAdvanceWall = 0;
+  }
   if(AC){
     // 'suspended' 与 iOS 非标准的 'interrupted' 一并恢复
     if(AC.state !== 'running') AC.resume().catch(() => {});
@@ -462,6 +482,7 @@ function ensureAudio(){
   if(!Ctx) return;
   AC = new Ctx();
   AC.resume().catch(() => {});
+  acTimeLast = 0; acAdvanceWall = performance.now();
 
   // 公共输出链：总闸 → 压限 → 分析器 → 扬声器
   const master = AC.createGain(); master.gain.value = 0;
@@ -474,10 +495,13 @@ function ensureAudio(){
 
   // 解码内嵌录音；任何一步失败都回退合成
   try{
-    const bin = atob(ZZL_SAMPLE);
-    const bytes = new Uint8Array(bin.length);
-    for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-    AC.decodeAudioData(bytes.buffer,
+    if(!sampleBytes){
+      const bin = atob(ZZL_SAMPLE);
+      sampleBytes = new Uint8Array(bin.length);
+      for(let i = 0; i < bin.length; i++) sampleBytes[i] = bin.charCodeAt(i);
+    }
+    // decodeAudioData 会 detach 传入的 buffer，给副本以便重建时复用
+    AC.decodeAudioData(sampleBytes.slice().buffer,
       buf => startSampleVoice(buf),
       () => startSynthVoice());
   }catch(_){ startSynthVoice(); }
@@ -680,6 +704,27 @@ function update(dt){
   }
 
   updateAudio();
+
+  // 音频心跳采样：currentTime 停走 1.5s 即判僵尸，就地重建
+  // (重建发生在无手势的帧循环里时，新上下文可能挂起，由解锁药丸引导恢复)
+  if(AC && AC.state === 'running'){
+    const ct = AC.currentTime;
+    if(ct !== acTimeLast){
+      acTimeLast = ct;
+      acAdvanceWall = performance.now();
+    }else if(audioStalled()){
+      ensureAudio();
+    }
+  }else if(AC){
+    // 非 running(静置挂起/来电中断等)期间宽限期持续顺延，
+    // 恢复 running 的瞬间才不会把健康上下文误判成僵尸杀掉
+    acAdvanceWall = performance.now();
+  }
+
+  // "想出声却出不了"：正在甩/自动/体感模式下上下文却没在跑 → 重新亮出解锁引导
+  const wantSound = auto.on || motion.on || pointer.down || active > 0.05;
+  if(wantSound && AC && AC.state !== 'running') needSoundTime += dt;
+  else needSoundTime = 0;
 
   if(active > 0.3){
     singTime += dt;
@@ -965,6 +1010,8 @@ const autoBtn = document.getElementById('autoBtn');
 function frame(now){
   // 有些嵌入环境不派发 resize 事件，每帧自查尺寸变化
   if(Math.max(1, window.innerWidth) !== W || Math.max(1, window.innerHeight) !== H) resize();
+  // rAF 出现大间隙说明页面被冻结过(部分 WebView 不派发 visibilitychange)，宽限期重置
+  if(now - last > 1000) acAdvanceWall = performance.now();
   const dt = Math.min(0.05, (now - last)/1000) || 0.016;
   last = now;
   update(dt);
@@ -988,7 +1035,7 @@ function setAuto(on){
     auto.cx = clamp(stick.x, W*0.28, W*0.72);
     auto.cy = clamp(stick.y, H*0.26, H*0.6);
     auto.phase = Math.atan2(stick.y - auto.cy, stick.x - auto.cx);
-    ensureAudio();
+    ensureAudio(true);
   }
 }
 
@@ -1026,7 +1073,7 @@ async function setMotion(on){
   if(on){
     interacted = true;
     if(auto.on) setAuto(false);
-    ensureAudio();
+    ensureAudio(true);
     motion.ax = motion.ay = motion.bx = motion.by = 0;
     motion.gotEvent = false;
     motion.enabledAt = performance.now();
@@ -1064,7 +1111,7 @@ cv.addEventListener('pointerdown', e => {
   if(auto.on) setAuto(false);
   target.x = e.clientX;
   target.y = Math.max(12, e.clientY - pointer.lift);
-  ensureAudio();
+  ensureAudio(true);
 });
 cv.addEventListener('pointermove', e => {
   if(!pointer.down || e.pointerId !== pointer.id) return;
@@ -1076,7 +1123,7 @@ function release(e){
   pointer.down = false;
   pointer.id = null;
   cv.classList.remove('holding');
-  ensureAudio();
+  ensureAudio(true);
 }
 cv.addEventListener('pointerup', release);
 cv.addEventListener('pointercancel', release);
@@ -1084,19 +1131,25 @@ cv.addEventListener('pointercancel', release);
 // 音频解锁只认这些事件：Android Chrome 上触摸授予激活的是 touchend
 // (pointerup 在它之前派发、拿不到激活)，click/keydown 覆盖按钮和键盘
 ['touchend', 'click', 'keydown'].forEach(type =>
-  document.addEventListener(type, () => ensureAudio(), { capture: true, passive: true }));
+  document.addEventListener(type, () => ensureAudio(true), { capture: true, passive: true }));
 
 // 首次开声引导：触屏设备且音频没在跑时显示，解锁后自动消失
 const unlockEl = document.getElementById('unlock');
 if('ontouchstart' in window) unlockEl.hidden = false;
 unlockEl.addEventListener('click', e => {
   e.stopPropagation();
-  ensureAudio();          // click 自带激活，这里 resume 必然放行
+  ensureAudio(true);      // click 自带激活，这里 resume 必然放行
 });
 function syncUnlock(){
-  if(!unlockEl.hidden && AC && AC.state === 'running'){
-    unlockEl.classList.add('gone');
-    setTimeout(() => { unlockEl.hidden = true; }, 600);
+  if(AC && AC.state === 'running'){
+    if(!unlockEl.hidden && !unlockEl.classList.contains('gone')){
+      unlockEl.classList.add('gone');
+      setTimeout(() => { if(unlockEl.classList.contains('gone')) unlockEl.hidden = true; }, 600);
+    }
+  }else if(needSoundTime > 1.2){
+    // 后台切回后重建的上下文没手势解锁不了，自动甩/体感模式又不会再点屏幕——把药丸请回来
+    unlockEl.classList.remove('gone');
+    unlockEl.hidden = false;
   }
 }
 
@@ -1109,8 +1162,18 @@ window.addEventListener('keydown', e => {
 
 document.addEventListener('visibilitychange', () => {
   if(!AC) return;
-  if(document.hidden) AC.suspend().catch(() => {});
-  else AC.resume().catch(() => {});
+  if(document.hidden){
+    AC.suspend().catch(() => {});
+  }else{
+    acAdvanceWall = performance.now();   // 宽限期重置，别把后台冻结误判成僵尸
+    AC.resume().catch(() => {});
+  }
+});
+window.addEventListener('pageshow', () => {   // bfcache 恢复时也拉一把
+  if(AC){
+    acAdvanceWall = performance.now();
+    AC.resume().catch(() => {});
+  }
 });
 
 /* ============================================================

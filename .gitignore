@@ -19,3 +19,6 @@ worker/.dev.vars
 # 日志与临时文件
 *.log
 *.tmp
+
+# Claude Code 本地配置
+.claude/
