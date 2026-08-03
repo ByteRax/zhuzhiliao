@@ -80,8 +80,15 @@ localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自�
   按 IP 的连接/补报频控、单连接 hi 去重
 - **路由**：`zhuzhiliao.imsai.cc/api/*` 走 zone route 进 Worker，其余流量走 Pages；
   唯一访客用 localStorage 里的随机 UUID 在 DO 的 SQLite 表去重
+- **来源限制**：前后端都只认本站域名（`zhuzhiliao.imsai.cc` 与自家 Pages 预览域）。
+  别处部署的副本、`file://` 直开的本地文件一律离线跑，统计行只留个人哇数 —— 既不会把
+  哇数混进本站统计，也不会消耗本站额度；Worker 侧按 `Origin` 兜底，非法来源拦在 DO 之前
 
 部署：`cd worker && npx wrangler deploy`（Pages 部署页面本体，Worker 承接 `/api/*`）。
+
+想要自己的一套计数：部署自己的 Worker，然后把 `index.html` 里的 `API_ORIGIN`
+和 `worker/src/index.js` 里的 `originAllowed()` 换成你自己的域名。不改也能玩，
+只是没有全站数据 —— 游戏本身不依赖后端。
 
 ## 点个 Star ⭐
 

@@ -11,6 +11,20 @@ const CORS = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
+/* 只接受本站自己的页面来源：fork 出去的部署不该把哇数记进本站统计，也不该消耗本站额度。
+   浏览器不允许网页伪造 Origin，这层对所有网页来源都成立（WebSocket 握手与 sendBeacon 都会带上）；
+   curl 之类可以随便伪造，但那是另一个威胁模型，不是这里要防的。前端 API_ORIGIN 白名单与此一致。 */
+function originAllowed(request) {
+  const raw = request.headers.get('Origin');
+  if (!raw) return false;                                  // 非浏览器来源
+  let u;
+  try { u = new URL(raw); } catch (_) { return false; }    // file:// 的 "null" 等非法值
+  if (u.protocol !== 'https:') return false;
+  return u.hostname === 'zhuzhiliao.imsai.cc'
+      || u.hostname === 'zhuzhiliao.pages.dev'
+      || u.hostname.endsWith('.zhuzhiliao.pages.dev');     // 自家 Pages 预览域
+}
+
 const WAH_BATCH_MAX = 30;     // 单条消息最多记多少哇（客户端 1.2s 一批，物理上甩不过 ~6 圈/秒）
 const WAH_RATE_MAX = 80;      // 单连接 10 秒窗口内的哇数上限
 const MAX_SOCKETS = 500;      // 并发连接上限（广播成本兜底）
@@ -203,6 +217,13 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname.startsWith('/api/')) {
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: CORS });      // 预检不必唤醒 DO
+      }
+      // 会改数的接口（建连计数 / beacon 补报）限本站来源；/api/stats 只读，保持开放便于 curl 查数
+      if (url.pathname !== '/api/stats' && !originAllowed(request)) {
+        return new Response('forbidden origin', { status: 403, headers: CORS });
+      }
       return env.COUNTER.getByName('global').fetch(request);
     }
     return new Response('zhuzhiliao api', { headers: CORS });

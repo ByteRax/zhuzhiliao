@@ -340,8 +340,8 @@
 <div class="unlock" id="unlock" hidden>🔊 点一下开声</div>
 
 <div class="stats" id="stats" hidden>
-  此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
-  · 全球 <b id="stWahs">–</b> 哇 · <span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
+  <span id="stGlobal">此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
+  · 全球 <b id="stWahs">–</b> 哇 · </span><span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
 </div>
 
 <script>
@@ -1346,12 +1346,22 @@ window.addEventListener('pageshow', () => {   // bfcache 恢复时也拉一把
 /* ============================================================
    计数 —— 全站实时(云端 Durable Object) + 个人(浏览器本地)
    ============================================================ */
-const API_ORIGIN = location.host === 'zhuzhiliao.imsai.cc'
-  ? location.origin                       // 同源走 /api/* 路由
-  : 'https://zhuzhiliao.imsai.cc';        // pages.dev / 本地文件 / 局域网 等一律走主域名
+/* 只有本站自己的域名才连计数后端：fork 出去的部署、下载到本地直开的副本，
+   不该把哇数记进主站统计，也不该消耗主站 Worker 额度。非白名单来源一律离线跑，
+   只保留 localStorage 里的个人哇数。（Worker 侧同样校验 Origin，两头一致。）
+   本地想联调线上后端：把这里临时改成 'https://zhuzhiliao.imsai.cc'，
+   但 Worker 会按 Origin 拒掉局域网地址，联调请配合 wrangler dev。 */
+const API_ORIGIN = (() => {
+  const h = location.host;
+  if(h === 'zhuzhiliao.imsai.cc') return location.origin;      // 生产：同源走 /api/* 路由
+  if(h === 'zhuzhiliao.pages.dev' || h.endsWith('.zhuzhiliao.pages.dev'))
+    return 'https://zhuzhiliao.imsai.cc';                      // 自家 Pages 预览域走主域名
+  return null;                                                 // 别处部署 / file:// / 局域网调试
+})();
 
 const stEls = {
   root: document.getElementById('stats'),
+  global: document.getElementById('stGlobal'),
   online: document.getElementById('stOnline'),
   visitors: document.getElementById('stVisitors'),
   visits: document.getElementById('stVisits'),
@@ -1389,6 +1399,7 @@ function renderStats(m){
 function renderMine(){ stEls.mine.textContent = fmt(myWah); }
 
 function wsConnect(){
+  if(!API_ORIGIN) return;
   if(ws && ws.readyState <= 1) return;
   let sock;
   try{ sock = new WebSocket(API_ORIGIN.replace(/^http/, 'ws') + '/api/ws'); }
@@ -1424,7 +1435,7 @@ setInterval(() => {
 
 // 页面关闭前把没上报的哇用 beacon 补上
 window.addEventListener('pagehide', () => {
-  if(pendingWah > 0 && navigator.sendBeacon){
+  if(API_ORIGIN && pendingWah > 0 && navigator.sendBeacon){
     navigator.sendBeacon(API_ORIGIN + '/api/wah', JSON.stringify({ n: pendingWah }));
     pendingWah = 0;
   }
@@ -1432,7 +1443,8 @@ window.addEventListener('pagehide', () => {
 
 let mySaveTimer = 0;
 function addWah(n){
-  myWah += n; pendingWah += n;
+  myWah += n;
+  if(API_ORIGIN) pendingWah += n;       // 离线跑时不攒待上报量，心跳/批报/beacon 自然全空转
   renderMine();
   stEls.mineWrap.classList.remove('minepop');
   void stEls.mineWrap.offsetWidth;      // 重启动画
@@ -1445,6 +1457,7 @@ function addWah(n){
   }
 }
 
+if(!API_ORIGIN) stEls.global.hidden = true;   // 不连后端时统计行只留「我 X 哇」
 stEls.root.hidden = false;
 renderMine();
 wsConnect();
