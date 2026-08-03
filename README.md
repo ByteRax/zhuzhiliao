@@ -7,8 +7,7 @@
 [![Stars](https://img.shields.io/github/stars/imsai-sh/zhuzhiliao?style=social)](https://github.com/imsai-sh/zhuzhiliao/stargazers)
 ![玩法](https://img.shields.io/badge/%E7%8E%A9%E6%B3%95-%E6%8C%89%E4%BD%8F%E7%94%BB%E5%9C%88%E7%94%A9%E8%B5%B7%E6%9D%A5-e2603f)
 
-> 甩两下要是听见了小时候那声"哇——哇——"，顺手点个 ⭐ **Star** 吧，
-> 它是这个不放广告、不卖东西、也不打算恰饭的小玩具唯一的回声。
+> 甩两下要是听见了小时候那声"哇——哇——"，顺手点个 ⭐ **Star** 吧。
 
 ## 玩法
 
@@ -87,13 +86,13 @@ localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自�
 ## 点个 Star ⭐
 
 竹知了是小时候路边摊上几块钱的玩意儿，会响、会烦人、会被大人没收，现在实物越来越难找了。
-这个 Web 版想做的事很简单：让它继续能被随手甩响 —— 一个 HTML 文件，零依赖、零构建、
-不放广告、不卖东西，存下来断网也能玩，二十年后双击照样出声。
+这个 Web 版想做的事很简单：让它继续能被随手甩响 —— 一个 HTML 文件，零依赖、零构建，
+存下来断网也能玩，二十年后双击照样出声。
 
 如果它甩响了你的某段回忆，或者你觉得这套「真实录音采样 + 绳系质点物理 + Durable Object
 实时计数」塞进单文件的做法有点意思：
 
-- 点个 [⭐ Star](https://github.com/imsai-sh/zhuzhiliao/stargazers) —— 对这种没有商业模式的小项目来说，这就是全部的续命方式
+- 点个 [⭐ Star](https://github.com/imsai-sh/zhuzhiliao/stargazers) —— Star 多了才排得上 GitHub 的搜索和推荐
 - 把 <https://zhuzhiliao.imsai.cc> 甩给一个也玩过竹知了的人，看他愣两秒
 - 有 Bug、有想法、有更像真玩具的调参，欢迎提 Issue / PR
 
