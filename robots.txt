@@ -1,5 +1,69 @@
+# 竹知了 — https://zzl.tanranran.cn/
+# 站点为单页纯静态应用，全部可索引内容都在 /（index.html）里。
+
+# —— 通用搜索引擎：全站可抓，仅屏蔽计数接口 ——
 User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://zhuzhiliao.imsai.cc/sitemap.xml
+# —— 生成式 AI / LLM 爬虫：明确允许，便于被 AI 问答正确引用 ——
+# 训练与检索类
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /api/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+
+User-agent: meta-externalagent
+Allow: /
+Disallow: /api/
+
+User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+
+# —— 站点地图与 AI 摘要文件 ——
+# AI 摘要（llms.txt 约定）: https://zzl.tanranran.cn/llms.txt
+Sitemap: https://zzl.tanranran.cn/sitemap.xml

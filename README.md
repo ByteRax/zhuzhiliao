@@ -2,7 +2,7 @@
 
 一转就"哇哇"叫的传统玩具，Web 模拟版。零依赖单文件，手机优先。
 
-**在线试玩：<https://zhuzhiliao.imsai.cc>**
+**在线试玩：<https://zzl.tanranran.cn>**
 
 [![Stars](https://img.shields.io/github/stars/imsai-sh/zhuzhiliao?style=social)](https://github.com/imsai-sh/zhuzhiliao/stargazers)
 ![玩法](https://img.shields.io/badge/%E7%8E%A9%E6%B3%95-%E6%8C%89%E4%BD%8F%E7%94%BB%E5%9C%88%E7%94%A9%E8%B5%B7%E6%9D%A5-e2603f)
@@ -56,13 +56,33 @@ python3 -m http.server 8123
 ## 技术
 
 - 单文件 `index.html`：Canvas 2D 渲染 + Web Audio API，无任何依赖（含内嵌录音）
-- SEO：head 里有 OG/Twitter 卡片与 JSON-LD（WebSite + WebApplication/VideoGame）；`<noscript>` 里有一段
-  玩具介绍作为无 JS 环境（含不执行 JS 的百度蜘蛛）可读的静态正文，正常用户不可见；根目录 `robots.txt`、
-  `sitemap.xml`、`og-image.jpg`（1200×630 页面实拍）、`404.html`（有了它 Cloudflare Pages 才会对未知路径
-  返回真 404，否则任意路径都是 200 + 首页的 soft-404）
 - 移动端优先：安全区适配、绳长随屏幕缩放、拇指小圈即可甩响（触摸时锚点自动上移避免手挡）、多点触控互斥、`devicemotion` 体感模式
 - 音频在首次触摸/点击时初始化，触摸在抬手时补解锁（user activation 规则）；iOS 的 `interrupted` 状态与旧内核 `roundRect` 均有兜底
 - 静态场景预合成为离屏层，静置 8 秒自动挂起音频线程省电
+
+## SEO 与 GEO
+
+站点是纯静态单页，View Source 即可见全部 meta 与正文，无需执行 JS（等价 SSG）。
+
+- **元数据**：`title` / `description` / `keywords` / `canonical` / `robots`（含 `max-snippet:-1`）、
+  hreflang 自引用 + `x-default`（当前只有 zh-CN，加语言版本时在 canonical 下方追加）、
+  OG 与 Twitter 卡片（含 `og:image:alt`、`og:image:type`）、`og-image.jpg`（1200×630 页面实拍）作为缺省社交图
+- **结构化数据**：head 里一段 `@graph`，含 `WebSite` / `WebPage`（带 `datePublished`、`dateModified`、
+  `about`、`citation`）/ `ImageObject` / `BreadcrumbList` / `WebApplication`+`VideoGame` / `HowTo` /
+  `FAQPage` / `Person`。**不声明 `SearchAction`**（站内无搜索）、**不声明 `Organization` 与
+  `aggregateRating`**（无组织实体、无真实评分）—— 虚假标记会被判罚
+- **正文可提取性（GEO）**：`<main class="semantic-content">` 是一段折叠的语义正文，标题层级为
+  `h1`（站名）→ `h2`（是什么 / 怎么玩 / 为什么会叫 / 兼容性 / 常见问题 / 作者与来源），
+  每节首句即完整答案，FAQ 用 `<dl>` 且与 `FAQPage` schema 逐条对应；
+  末节标注作者、发布/更新时间与外部来源引用（E-E-A-T）
+- **`<noscript>`**：给不执行 JS 的爬虫（如百度蜘蛛）的静态正文，正常用户不可见
+- **爬虫策略**：`robots.txt` 对通用爬虫与 GPTBot / OAI-SearchBot / ClaudeBot / PerplexityBot /
+  Google-Extended / Applebot-Extended 等生成式 AI 爬虫**显式允许**，只屏蔽 `/api/`；
+  另有 `llms.txt` 给 AI 提供结构化站点摘要（关键事实 + 玩法 + 问答 + 来源）
+- **其他**：`sitemap.xml`（含 `lastmod`）、`manifest.webmanifest`、
+  `404.html`（有了它 Cloudflare Pages 才会对未知路径返回真 404，否则任意路径都是 200 + 首页的 soft-404）
+
+改动 SEO/GEO 相关内容时，**正文、`FAQPage` schema、`llms.txt` 三处需同步**，否则会出现结构化数据与页面内容不一致。
 
 ## 实时计数
 
@@ -78,7 +98,8 @@ localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自�
 - **成本控制**：计数在内存自增、2 秒合并落盘（SQLite 行写入有限额）；免费套餐足够跑
 - **防刷**：单连接哇数限速（10s 滑动窗口）、单条消息哇数上限、并发连接上限、
   按 IP 的连接/补报频控、单连接 hi 去重
-- **路由**：`zhuzhiliao.imsai.cc/api/*` 走 zone route 进 Worker，其余流量走 Pages；
+- **路由**：计数后端固定在 `zhuzhiliao.imsai.cc/api/*`（zone route 进 Worker）；页面无论部署在哪个域名，
+  前端都跨域回源到该 Worker（`API_ORIGIN` 常量，Worker CORS 为 `*`）；
   唯一访客用 localStorage 里的随机 UUID 在 DO 的 SQLite 表去重
 
 部署：`cd worker && npx wrangler deploy`（Pages 部署页面本体，Worker 承接 `/api/*`）。
@@ -93,7 +114,7 @@ localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自�
 实时计数」塞进单文件的做法有点意思：
 
 - 点个 [⭐ Star](https://github.com/imsai-sh/zhuzhiliao/stargazers) —— Star 多了才排得上 GitHub 的搜索和推荐
-- 把 <https://zhuzhiliao.imsai.cc> 甩给一个也玩过竹知了的人，看他愣两秒
+- 把 <https://zzl.tanranran.cn> 甩给一个也玩过竹知了的人，看他愣两秒
 - 有 Bug、有想法、有更像真玩具的调参，欢迎提 Issue / PR
 
 全球哇数正在页面底部实时跳动，你的每一圈都算数。

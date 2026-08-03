@@ -1,7 +1,7 @@
 {
   // 竹知了 — 零依赖、单文件、无构建的纯静态站点，仓库根目录即站点根。
-  // 计数后端继续由 Cloudflare Worker 提供（前端在非 imsai.cc 域名下会回源到 zhuzhiliao.imsai.cc），
-  // 因此这里不做边缘函数（entry），只做静态托管。
+  // 计数后端继续由 Cloudflare Worker 提供（Worker 路由绑在 zhuzhiliao.imsai.cc/api/*，
+  // 前端通过 CORS 跨域回源），因此这里不做边缘函数（entry），只做静态托管。
   "name": "zhuzhiliao",
   "installCommand": "",          // 无 npm 依赖，跳过安装
   "buildCommand": "",            // 无构建步骤，跳过
