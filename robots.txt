@@ -247,3 +247,4 @@ Disallow: /api/
 # —— 站点地图与 AI 摘要文件 ——
 # AI 摘要（llms.txt 约定）: https://zzl.tanranran.cn/llms.txt
 Sitemap: https://zzl.tanranran.cn/sitemap.xml
+Sitemap: https://zzl.tanranran.cn/sitemap.txt

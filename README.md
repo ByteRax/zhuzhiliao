@@ -90,7 +90,7 @@ python3 -m http.server 8123
   并在 head 用 `<link rel="alternate" type="text/plain" href="/llms.txt">` 指向它
 - **收录加速**：内嵌百度自动推送脚本，仅在 `https://zzl.tanranran.cn` 下执行、加载失败静默忽略；
   其余引擎（Bing / 360 / 搜狗 / Yandex）的站点验证 meta 需要各自后台生成 token 后再补
-- **其他**：`sitemap.xml`（含 `lastmod`、`xhtml:link` hreflang 与 image 扩展）、`manifest.webmanifest`、
+- **其他**：`sitemap.xml`（含 `lastmod`、`xhtml:link` hreflang 与 image 扩展）与 `sitemap.txt`（纯文本 URL 列表，给只收 txt 的站长平台）、`manifest.webmanifest`、
   API 源 `dns-prefetch` + `preconnect`、
   `404.html`（`noindex,follow`；有了它 Cloudflare Pages 才会对未知路径返回真 404，否则任意路径都是 200 + 首页的 soft-404）
 
