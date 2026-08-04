@@ -1,7 +1,7 @@
 {
   "name": "竹知了",
   "short_name": "竹知了",
-  "description": "竹蝉、拉线蝉等传统玩具的零依赖网页模拟版，按住画圈甩起来即可听见哇哇声",
+  "description": "赛博竹知了：竹蝉、拉线蝉等传统玩具的零依赖网页模拟版，按住画圈甩起来即可听见哇哇声",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
