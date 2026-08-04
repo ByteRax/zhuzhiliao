@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /api/
 
-Sitemap: https://zhuzhiliao.imsai.cc/sitemap.xml
+Sitemap: https://zhuzhiliao.icu/sitemap.xml

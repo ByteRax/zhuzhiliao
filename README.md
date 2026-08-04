@@ -2,7 +2,24 @@
 
 一转就"哇哇"叫的传统玩具，Web 模拟版。零依赖单文件，手机优先。
 
-**在线试玩：<https://zhuzhiliao.imsai.cc>**
+**在线试玩：<https://zhuzhiliao.icu>**
+
+> [!CAUTION]
+> **本项目不是开源项目，未授权任何人再分发或公开部署。**
+>
+> 官方站点只有 <https://zhuzhiliao.icu>，**其他任何域名上的部署都未经授权**。
+>
+> 已发现有人擅自修改本项目代码后公开部署，包括将页面中作者原创的手绘小蝉形象替换为
+> 真实人物形象。此类衍生版本与本项目及作者没有任何关系，作者未参与、未授权、也不
+> 认可；其内容以及由此产生的全部法律责任，由该版本的制作者和部署者自行承担。作者
+> 保留就侵犯著作权及其他合法权益的行为追究责任的权利。
+>
+> 源码公开仅供学习交流，权利范围见 [LICENSE](LICENSE)。
+>
+> *This project is NOT open source. Redistribution and public deployment are not
+> permitted. The only official site is <https://zhuzhiliao.icu> — any deployment
+> on another domain is unauthorized and unaffiliated with this project or its author,
+> who bears no responsibility for its content. See [LICENSE](LICENSE).*
 
 [![Stars](https://img.shields.io/github/stars/imsai-sh/zhuzhiliao?style=social)](https://github.com/imsai-sh/zhuzhiliao/stargazers)
 ![玩法](https://img.shields.io/badge/%E7%8E%A9%E6%B3%95-%E6%8C%89%E4%BD%8F%E7%94%BB%E5%9C%88%E7%94%A9%E8%B5%B7%E6%9D%A5-e2603f)
@@ -64,24 +81,13 @@ python3 -m http.server 8123
 - 音频在首次触摸/点击时初始化，触摸在抬手时补解锁（user activation 规则）；iOS 的 `interrupted` 状态与旧内核 `roundRect` 均有兜底
 - 静态场景预合成为离屏层，静置 8 秒自动挂起音频线程省电
 
-## 实时计数
+## 哇数计数
 
-页面底部有一行全站统计：**此刻在线 · 唯一来客 · 访问次数 · 全球哇数**，外加只存在浏览器
-localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自动甩不计。
+页面底部只显示**你自己的哇数**：手动甩出的每一圈记一"哇"，自动甩不计。这个数存在你
+浏览器的 localStorage 里，**不上传、不联网、没有后端**——页面加载完就再不发任何请求。
 
-后端是 `worker/` 里的一个 Cloudflare Worker + 单实例 SQLite **Durable Object**：
-
-- **实时推送**：所有在线玩家挂在同一个 DO 的 WebSocket（Hibernation API）上，任何人甩出哇，
-  350ms 合并广播推给全场；挂机连接休眠零费用，心跳 ping/pong 由运行时自动应答不唤醒 DO
-- **同步策略**：客户端本地先累计，1.2s 批量走 WS 上报；页面关闭用 `sendBeacon` 兜底补报；
-  断线指数退避重连，重连不重复计访问
-- **成本控制**：计数在内存自增、2 秒合并落盘（SQLite 行写入有限额）；免费套餐足够跑
-- **防刷**：单连接哇数限速（10s 滑动窗口）、单条消息哇数上限、并发连接上限、
-  按 IP 的连接/补报频控、单连接 hi 去重
-- **路由**：`zhuzhiliao.imsai.cc/api/*` 走 zone route 进 Worker，其余流量走 Pages；
-  唯一访客用 localStorage 里的随机 UUID 在 DO 的 SQLite 表去重
-
-部署：`cd worker && npx wrangler deploy`（Pages 部署页面本体，Worker 承接 `/api/*`）。
+> 早先有过一套 Cloudflare Worker + Durable Object 的全站实时计数（在线人数、访问量、
+> 全球哇数）。现已整体下线，后端代码也从仓库移除；想看实现可以翻 git 历史。
 
 ## 点个 Star ⭐
 
@@ -89,11 +95,42 @@ localStorage 里的**个人哇数**。手动甩出的每一圈记一"哇"，自�
 这个 Web 版想做的事很简单：让它继续能被随手甩响 —— 一个 HTML 文件，零依赖、零构建，
 存下来断网也能玩，二十年后双击照样出声。
 
-如果它甩响了你的某段回忆，或者你觉得这套「真实录音采样 + 绳系质点物理 + Durable Object
-实时计数」塞进单文件的做法有点意思：
+如果它甩响了你的某段回忆，或者你觉得这套「真实录音采样 + 绳系质点物理」塞进单文件的
+做法有点意思：
 
 - 点个 [⭐ Star](https://github.com/imsai-sh/zhuzhiliao/stargazers) —— Star 多了才排得上 GitHub 的搜索和推荐
-- 把 <https://zhuzhiliao.imsai.cc> 甩给一个也玩过竹知了的人，看他愣两秒
+- 把 <https://zhuzhiliao.icu> 甩给一个也玩过竹知了的人，看他愣两秒
 - 有 Bug、有想法、有更像真玩具的调参，欢迎提 Issue / PR
 
-全球哇数正在页面底部实时跳动，你的每一圈都算数。
+## 许可与声明
+
+**本项目不是 OSI 意义上的开源项目。** 源码公开是为了技术分享，完整条款见 [LICENSE](LICENSE)：
+
+- **允许**：阅读研究源码、在自己拥有或控制的设备上本地运行、为学习或个人使用而修改
+- **不授权**：再分发（含修改版，无论是否收费）、部署到第三方可访问的位置、对外提供任何
+  形式的服务、任何商业使用、移除或篡改版权声明
+- **内容限制**：不得用本项目或其修改版制作、传播侵犯他人合法权益的内容，包括未经许可
+  使用真实人物的姓名、肖像、声音或其他人格标识；违反者许可自动终止
+
+官方站点只有 <https://zhuzhiliao.icu>，其他域名上的部署均未经授权，与本项目和作者
+无关——详见[页首声明](#竹知了)。需要超出上述范围的授权，请先联系作者取得书面许可。
+
+### 关于 Issue 与讨论区
+
+**欢迎提交功能性的 Issue** —— Bug 反馈、浏览器兼容问题、物理或声音的调参建议、想让它
+更像真玩具的想法、实现细节的讨论，都很欢迎，也是这个区域存在的意义。提之前带上复现
+步骤和设备/浏览器信息会更容易被修掉。
+
+本仓库 Issue、Pull Request、Discussion 等区域的内容，由各自的发布者提交并对其独立负责。
+这些内容**不代表本项目作者的观点或立场**，作者未对其进行事先审查，也不对其真实性、
+合法性承担责任。
+
+与本项目技术无关的内容——尤其是针对他人或公众人物的评论、影射、人身攻击，以及其他
+违法违规言论——将被删除或隐藏，必要时锁定议题并封禁相关账号。
+
+*Functional issues are welcome: bug reports, browser compatibility problems, tuning
+suggestions, and implementation questions. Issues, pull requests, and discussions are
+submitted by their respective authors, who bear sole responsibility for their content;
+such content does not represent the views of this project's author and is not reviewed
+in advance. Off-topic content — in particular remarks targeting other individuals or
+public figures — will be removed.*
