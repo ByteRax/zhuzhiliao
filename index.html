@@ -46,7 +46,7 @@
       "name": "竹知了",
       "alternateName": ["竹蝉", "拉线蝉", "知了哇呜"],
       "url": "https://zhuzhiliao.imsai.cc/",
-      "description": "传统民间玩具“竹知了”（竹蝉/拉线蝉）的网页模拟版——甩起来会哇哇叫的竹筒玩具。真实物理模拟加真实录音采样，转得越快叫得越响。免费、无广告、无需下载安装，手机和电脑浏览器打开即玩，代码开源。",
+      "description": "传统民间玩具“竹知了”（竹蝉/拉线蝉）的网页模拟版——甩起来会哇哇叫的竹筒玩具。真实物理模拟加真实录音采样，转得越快叫得越响。免费、无广告、无需下载安装，手机和电脑浏览器打开即玩，源码公开。",
       "inLanguage": "zh-CN",
       "applicationCategory": "GameApplication",
       "operatingSystem": "Any",
@@ -203,7 +203,7 @@
     50%{ transform:translateX(-50%) scale(1.06); }
   }
 
-  /* —— GitHub 开源角标 —— */
+  /* —— 右上角胶囊按钮 —— */
   .ghlink{
     position:fixed;
     top:calc(24px + env(safe-area-inset-top));
@@ -215,8 +215,7 @@
     transition:all .25s ease;
   }
   .ghlink:hover{ opacity:1; border-color:var(--accent); color:#ffcf9e; box-shadow:0 0 16px rgba(226,96,63,.25); }
-  .ghlink.author{ top:calc(64px + env(safe-area-inset-top)); }
-  .ghlink.install{ top:calc(104px + env(safe-area-inset-top)); cursor:pointer; }
+  .ghlink.install{ cursor:pointer; }
 
   /* —— iOS 添加到主屏幕指引 —— */
   .installtip{
@@ -257,8 +256,6 @@
     35%{ transform:scale(1.7); }
     100%{ transform:scale(1.22); }
   }
-  .stats b.wahflash{ animation:wahflash .5s ease; }
-  @keyframes wahflash{ 0%{ color:#ff8a50; text-shadow:0 0 12px rgba(255,138,80,.8); } 100%{} }
 
   /* —— 左下注脚 —— */
   .lore{
@@ -273,8 +270,6 @@
   @media (max-width:640px){
     .lore{ display:none; }
     .ghlink{ font-size:10.5px; padding:5px 10px 5px 13px; }
-    .ghlink.author{ top:calc(56px + env(safe-area-inset-top)); }
-    .ghlink.install{ top:calc(90px + env(safe-area-inset-top)); }
     .stats{
       left:calc(12px + env(safe-area-inset-left));
       transform:none;
@@ -320,8 +315,6 @@
 
 <footer class="lore">竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣</footer>
 
-<a class="ghlink" href="https://github.com/imsai-sh/zhuzhiliao" target="_blank" rel="noopener">开源 GitHub</a>
-<a class="ghlink author" href="https://www.imsai.cc/" target="_blank" rel="noopener">作者主页</a>
 <a class="ghlink install" id="installBtn" role="button">装进桌面</a>
 
 <!-- 无 JS 环境（含不执行 JS 的爬虫）能读到的唯一正文；正常用户不可见 -->
@@ -333,15 +326,14 @@
     抓着竹签甩起来转圈，线在松香上“黏—滑”交替摩擦，振动顺着线传到竹膜，
     再经竹筒空腔共鸣放大，就是那声酷似知了的“哇——哇——”。</p>
     <p>这里是它的网页模拟版：按住屏幕画圈甩起来，转得越快叫得越响，声音来自真实竹知了的录音采样。
-    免费、无广告、开源，需要开启 JavaScript 才能玩。</p>
+    免费、无广告、源码公开，需要开启 JavaScript 才能玩。</p>
   </section>
 </noscript>
 
 <div class="unlock" id="unlock" hidden>🔊 点一下开声</div>
 
 <div class="stats" id="stats" hidden>
-  <span id="stGlobal">此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
-  · 全球 <b id="stWahs">–</b> 哇 · </span><span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
+  <span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
 </div>
 
 <script>
@@ -1344,107 +1336,26 @@ window.addEventListener('pageshow', () => {   // bfcache 恢复时也拉一把
 });
 
 /* ============================================================
-   计数 —— 全站实时(云端 Durable Object) + 个人(浏览器本地)
+   计数 —— 只在本机：哇数存 localStorage，不联网、不上报
    ============================================================ */
-/* 只有本站自己的域名才连计数后端：fork 出去的部署、下载到本地直开的副本，
-   不该把哇数记进主站统计，也不该消耗主站 Worker 额度。非白名单来源一律离线跑，
-   只保留 localStorage 里的个人哇数。（Worker 侧同样校验 Origin，两头一致。）
-   本地想联调线上后端：把这里临时改成 'https://zhuzhiliao.imsai.cc'，
-   但 Worker 会按 Origin 拒掉局域网地址，联调请配合 wrangler dev。 */
-const API_ORIGIN = (() => {
-  const h = location.host;
-  if(h === 'zhuzhiliao.imsai.cc') return location.origin;      // 生产：同源走 /api/* 路由
-  if(h === 'zhuzhiliao.pages.dev' || h.endsWith('.zhuzhiliao.pages.dev'))
-    return 'https://zhuzhiliao.imsai.cc';                      // 自家 Pages 预览域走主域名
-  return null;                                                 // 别处部署 / file:// / 局域网调试
-})();
-
 const stEls = {
   root: document.getElementById('stats'),
-  global: document.getElementById('stGlobal'),
-  online: document.getElementById('stOnline'),
-  visitors: document.getElementById('stVisitors'),
-  visits: document.getElementById('stVisits'),
-  wahs: document.getElementById('stWahs'),
   mine: document.getElementById('stMine'),
   mineWrap: document.getElementById('stMineWrap'),
 };
 
-let uid = '', myWah = 0;
+let myWah = 0;
 try{
-  uid = localStorage.getItem('zzl_uid') || '';
-  if(!uid){
-    uid = (crypto.randomUUID && crypto.randomUUID())
-       || (Date.now().toString(36) + Math.random().toString(36).slice(2));
-    localStorage.setItem('zzl_uid', uid);
-  }
   myWah = parseInt(localStorage.getItem('zzl_mywah') || '0', 10) || 0;
+  localStorage.removeItem('zzl_uid');   // 旧版全站计数的访客标识，后端已下线，清掉
 }catch(_){ /* 无痕模式等 localStorage 不可用时静默降级 */ }
 
-let ws = null, wsRetry = 0, saidHi = false, pendingWah = 0, lastWahs = -1;
 const fmt = n => n.toLocaleString('zh-Hans-CN');
-
-function renderStats(m){
-  stEls.online.textContent = fmt(m.online);
-  stEls.visitors.textContent = fmt(m.visitors);
-  stEls.visits.textContent = fmt(m.visits);
-  stEls.wahs.textContent = fmt(m.wahs);
-  if(lastWahs >= 0 && m.wahs > lastWahs){
-    stEls.wahs.classList.remove('wahflash');
-    void stEls.wahs.offsetWidth;         // 重启动画
-    stEls.wahs.classList.add('wahflash');
-  }
-  lastWahs = m.wahs;
-}
 function renderMine(){ stEls.mine.textContent = fmt(myWah); }
-
-function wsConnect(){
-  if(!API_ORIGIN) return;
-  if(ws && ws.readyState <= 1) return;
-  let sock;
-  try{ sock = new WebSocket(API_ORIGIN.replace(/^http/, 'ws') + '/api/ws'); }
-  catch(_){ return; }
-  ws = sock;
-  sock.onopen = () => {
-    wsRetry = 0;
-    sock.send(JSON.stringify({ t: 'hi', uid, v: saidHi ? 0 : 1 }));
-    saidHi = true;                       // 断线重连不重复计访问
-  };
-  sock.onmessage = ev => {
-    try{
-      const m = JSON.parse(ev.data);
-      if(m.t === 'stats') renderStats(m);
-    }catch(_){}
-  };
-  sock.onclose = () => {
-    ws = null;
-    setTimeout(wsConnect, Math.min(30000, 1000*Math.pow(2, wsRetry++)));
-  };
-  sock.onerror = () => { try{ sock.close(); }catch(_){} };
-}
-
-// 心跳保活（服务端由运行时自动应答，不唤醒 DO）；本地攒的哇 1.2s 批量上报
-setInterval(() => { if(ws && ws.readyState === 1) ws.send('ping'); }, 25000);
-setInterval(() => {
-  if(pendingWah > 0 && ws && ws.readyState === 1){
-    const n = Math.min(pendingWah, 30);
-    ws.send(JSON.stringify({ t: 'wah', n }));
-    pendingWah -= n;
-  }
-}, 1200);
-
-// 页面关闭前把没上报的哇用 beacon 补上
-window.addEventListener('pagehide', () => {
-  if(API_ORIGIN && pendingWah > 0 && navigator.sendBeacon){
-    navigator.sendBeacon(API_ORIGIN + '/api/wah', JSON.stringify({ n: pendingWah }));
-    pendingWah = 0;
-  }
-});
 
 let mySaveTimer = 0;
 function addWah(n){
   myWah += n;
-  if(API_ORIGIN) pendingWah += n;       // 离线跑时不攒待上报量，心跳/批报/beacon 自然全空转
   renderMine();
   stEls.mineWrap.classList.remove('minepop');
   void stEls.mineWrap.offsetWidth;      // 重启动画
@@ -1457,10 +1368,8 @@ function addWah(n){
   }
 }
 
-if(!API_ORIGIN) stEls.global.hidden = true;   // 不连后端时统计行只留「我 X 哇」
 stEls.root.hidden = false;
 renderMine();
-wsConnect();
 
 /* —— Service Worker：安卓 Chrome 的安装提示以此为门槛，顺带离线可玩 —— */
 if('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:'){
