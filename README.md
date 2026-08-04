@@ -4,6 +4,24 @@
 
 **在线试玩：<https://zhuzhiliao.imsai.cc>**
 
+> [!CAUTION]
+> **本项目不是开源项目，未授权任何人再分发或公开部署。**
+>
+> 官方站点只有 <https://zhuzhiliao.imsai.cc>，**其他任何域名上的部署都未经授权**。
+>
+> 已发现有人擅自修改本项目代码后公开部署，包括将页面中作者原创的手绘小蝉形象替换为
+> 真实人物形象。此类衍生版本与本项目及作者没有任何关系，作者未参与、未授权、也不
+> 认可；其内容以及由此产生的全部法律责任，由该版本的制作者和部署者自行承担。作者
+> 保留就侵犯著作权及其他合法权益的行为追究责任的权利。
+>
+> 源码公开仅供学习交流，权利范围见 [LICENSE](LICENSE)。发现未授权部署或此类衍生
+> 版本，欢迎提 [Issue](https://github.com/imsai-sh/zhuzhiliao/issues) 告知。
+>
+> *This project is NOT open source. Redistribution and public deployment are not
+> permitted. The only official site is <https://zhuzhiliao.imsai.cc> — any deployment
+> on another domain is unauthorized and unaffiliated with this project or its author,
+> who bears no responsibility for its content. See [LICENSE](LICENSE).*
+
 [![Stars](https://img.shields.io/github/stars/imsai-sh/zhuzhiliao?style=social)](https://github.com/imsai-sh/zhuzhiliao/stargazers)
 ![玩法](https://img.shields.io/badge/%E7%8E%A9%E6%B3%95-%E6%8C%89%E4%BD%8F%E7%94%BB%E5%9C%88%E7%94%A9%E8%B5%B7%E6%9D%A5-e2603f)
 
@@ -87,13 +105,13 @@ python3 -m http.server 8123
 
 ## 许可与声明
 
-**本项目不是 OSI 意义上的开源项目。** 源码公开是为了技术分享，具体许可范围见
-[LICENSE](LICENSE)：允许阅读、学习、在自己设备上本地运行和修改；**不授权**再分发、
-公开部署、对外提供服务和任何商业使用。需要超出这个范围，请先联系作者取得书面授权。
+**本项目不是 OSI 意义上的开源项目。** 源码公开是为了技术分享，完整条款见 [LICENSE](LICENSE)：
 
-- 官方站点只有 <https://zhuzhiliao.imsai.cc>。其他任何域名上的部署都未经授权，
-  与本项目和作者无关，作者不对其内容、行为或后果负责
-- 页面里的小蝉是作者手绘的原创形象。任何将其替换为真实人物姓名、肖像或其他人格
-  标识的衍生版本，均属未经授权的修改，其内容和法律责任由该版本的制作者、部署者
-  自行承担
-- 发现未授权的公开部署或此类衍生版本，欢迎提 Issue 告知
+- **允许**：阅读研究源码、在自己拥有或控制的设备上本地运行、为学习或个人使用而修改
+- **不授权**：再分发（含修改版，无论是否收费）、部署到第三方可访问的位置、对外提供任何
+  形式的服务、任何商业使用、移除或篡改版权声明
+- **内容限制**：不得用本项目或其修改版制作、传播侵犯他人合法权益的内容，包括未经许可
+  使用真实人物的姓名、肖像、声音或其他人格标识；违反者许可自动终止
+
+官方站点只有 <https://zhuzhiliao.imsai.cc>，其他域名上的部署均未经授权，与本项目和作者
+无关——详见[页首声明](#竹知了)。需要超出上述范围的授权，请先联系作者取得书面许可。
