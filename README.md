@@ -65,22 +65,34 @@ python3 -m http.server 8123
 站点是纯静态单页，View Source 即可见全部 meta 与正文，无需执行 JS（等价 SSG）。
 
 - **元数据**：`title` / `description` / `keywords` / `canonical` / `robots`（含 `max-snippet:-1`）、
-  hreflang 自引用 + `x-default`（当前只有 zh-CN，加语言版本时在 canonical 下方追加）、
-  OG 与 Twitter 卡片（含 `og:image:alt`、`og:image:type`）、`og-image.jpg`（1200×630 页面实拍）作为缺省社交图
+  `bingbot` 与 `Baiduspider` 细则、百度移动端禁转码（`Cache-Control: no-transform`）与
+  `applicable-device`（自适应站点声明）、hreflang 自引用 + `x-default`（当前只有 zh-CN，加语言版本时在 canonical 下方追加）、
+  OG 与 Twitter 卡片（含 `og:image:alt`、`og:image:type`、`og:image:secure_url`、`og:updated_time`）、
+  `og-image.jpg`（1200×630 页面实拍）作为缺省社交图。
+  `title` 与 `description` 放在 `<head>` 最前，内联 base64 favicon 移到结构化数据之后，
+  避免 8KB 的 data URI 把关键标签挤出只读头部前若干 KB 的爬虫视野
 - **结构化数据**：head 里一段 `@graph`，含 `WebSite` / `WebPage`（带 `datePublished`、`dateModified`、
-  `about`、`citation`）/ `ImageObject` / `BreadcrumbList` / `WebApplication`+`VideoGame` / `HowTo` /
-  `FAQPage` / `Person`。**不声明 `SearchAction`**（站内无搜索）、**不声明 `Organization` 与
-  `aggregateRating`**（无组织实体、无真实评分）—— 虚假标记会被判罚
+  `keywords`、`speakable`、`about`、`citation`）/ `ImageObject` / `BreadcrumbList` /
+  `WebApplication`+`VideoGame` / `HowTo` / `FAQPage` / `Person`。**不声明 `SearchAction`**（站内无搜索）、
+  **不声明 `Organization` 与 `aggregateRating`**（无组织实体、无真实评分）—— 虚假标记会被判罚
 - **正文可提取性（GEO）**：`<main class="semantic-content">` 是一段折叠的语义正文，标题层级为
   `h1`（站名）→ `h2`（是什么 / 怎么玩 / 为什么会叫 / 兼容性 / 常见问题 / 作者与来源），
   每节首句即完整答案，FAQ 用 `<dl>` 且与 `FAQPage` schema 逐条对应；
   末节标注作者、发布/更新时间与外部来源引用（E-E-A-T）
 - **`<noscript>`**：给不执行 JS 的爬虫（如百度蜘蛛）的静态正文，正常用户不可见
-- **爬虫策略**：`robots.txt` 对通用爬虫与 GPTBot / OAI-SearchBot / ClaudeBot / PerplexityBot /
-  Google-Extended / Applebot-Extended 等生成式 AI 爬虫**显式允许**，只屏蔽 `/api/`；
-  另有 `llms.txt` 给 AI 提供结构化站点摘要（关键事实 + 玩法 + 问答 + 来源）
-- **其他**：`sitemap.xml`（含 `lastmod`）、`manifest.webmanifest`、
-  `404.html`（有了它 Cloudflare Pages 才会对未知路径返回真 404，否则任意路径都是 200 + 首页的 soft-404）
+- **爬虫策略**：`robots.txt` 逐个显式允许三类爬虫，只屏蔽 `/api/`——
+  国内引擎（Baiduspider / Sogou / 360Spider / Yisouspider / PetalBot）、
+  国际引擎（Googlebot / Bingbot / Slurp / DuckDuckBot / YandexBot / Applebot / Yeti / SeznamBot 等）、
+  社交卡片爬虫（Twitterbot / facebookexternalhit / LinkedInBot / Discordbot 等）与
+  生成式 AI 爬虫（GPTBot / OAI-SearchBot / ClaudeBot / PerplexityBot / Google-Extended /
+  Applebot-Extended / Bytespider / CCBot 等）；
+  另有 `llms.txt` 给 AI 提供结构化站点摘要（一句话引用 + 关键事实 + 玩法 + 问答 + 来源），
+  并在 head 用 `<link rel="alternate" type="text/plain" href="/llms.txt">` 指向它
+- **收录加速**：内嵌百度自动推送脚本，仅在 `https://zzl.tanranran.cn` 下执行、加载失败静默忽略；
+  其余引擎（Bing / 360 / 搜狗 / Yandex）的站点验证 meta 需要各自后台生成 token 后再补
+- **其他**：`sitemap.xml`（含 `lastmod`、`xhtml:link` hreflang 与 image 扩展）、`manifest.webmanifest`、
+  API 源 `dns-prefetch` + `preconnect`、
+  `404.html`（`noindex,follow`；有了它 Cloudflare Pages 才会对未知路径返回真 404，否则任意路径都是 200 + 首页的 soft-404）
 
 改动 SEO/GEO 相关内容时，**正文、`FAQPage` schema、`llms.txt` 三处需同步**，否则会出现结构化数据与页面内容不一致。
 

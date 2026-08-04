@@ -1,8 +1,140 @@
-# 竹知了 — https://zzl.tanranran.cn/
+# 竹知了（赛博竹知了） — https://zzl.tanranran.cn/
 # 站点为单页纯静态应用，全部可索引内容都在 /（index.html）里。
+# 规则说明：全站允许抓取，只屏蔽实时计数接口 /api/（无内容、纯 WebSocket/JSON）。
 
-# —— 通用搜索引擎：全站可抓，仅屏蔽计数接口 ——
+# —— 通用兜底：未在下方单独列出的爬虫走这一组 ——
 User-agent: *
+Allow: /
+Disallow: /api/
+
+# —— 国内搜索引擎 ——
+User-agent: Baiduspider
+Allow: /
+Disallow: /api/
+
+User-agent: Baiduspider-render
+Allow: /
+Disallow: /api/
+
+User-agent: Baiduspider-image
+Allow: /
+Disallow: /api/
+
+User-agent: Sogou web spider
+Allow: /
+Disallow: /api/
+
+User-agent: Sogou inst spider
+Allow: /
+Disallow: /api/
+
+User-agent: Sogou spider2
+Allow: /
+Disallow: /api/
+
+User-agent: 360Spider
+Allow: /
+Disallow: /api/
+
+User-agent: HaosouSpider
+Allow: /
+Disallow: /api/
+
+User-agent: Yisouspider
+Allow: /
+Disallow: /api/
+
+User-agent: PetalBot
+Allow: /
+Disallow: /api/
+
+User-agent: Sosospider
+Allow: /
+Disallow: /api/
+
+# —— 国际搜索引擎 ——
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+
+User-agent: Googlebot-Image
+Allow: /
+Disallow: /api/
+
+User-agent: Storebot-Google
+Allow: /
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+
+User-agent: msnbot
+Allow: /
+Disallow: /api/
+
+User-agent: Slurp
+Allow: /
+Disallow: /api/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /api/
+
+User-agent: YandexBot
+Allow: /
+Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+Disallow: /api/
+
+User-agent: Yeti
+Allow: /
+Disallow: /api/
+
+User-agent: SeznamBot
+Allow: /
+Disallow: /api/
+
+User-agent: Qwantify
+Allow: /
+Disallow: /api/
+
+User-agent: MojeekBot
+Allow: /
+Disallow: /api/
+
+# —— 社交平台抓卡片用的爬虫：需要读到 OG / Twitter Card ——
+User-agent: Twitterbot
+Allow: /
+Disallow: /api/
+
+User-agent: facebookexternalhit
+Allow: /
+Disallow: /api/
+
+User-agent: LinkedInBot
+Allow: /
+Disallow: /api/
+
+User-agent: TelegramBot
+Allow: /
+Disallow: /api/
+
+User-agent: WhatsApp
+Allow: /
+Disallow: /api/
+
+User-agent: Discordbot
+Allow: /
+Disallow: /api/
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+Disallow: /api/
+
+User-agent: Embedly
 Allow: /
 Disallow: /api/
 
@@ -32,6 +164,10 @@ User-agent: Claude-SearchBot
 Allow: /
 Disallow: /api/
 
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+
 User-agent: PerplexityBot
 Allow: /
 Disallow: /api/
@@ -41,6 +177,10 @@ Allow: /
 Disallow: /api/
 
 User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+
+User-agent: Google-CloudVertexBot
 Allow: /
 Disallow: /api/
 
@@ -60,7 +200,47 @@ User-agent: meta-externalagent
 Allow: /
 Disallow: /api/
 
+User-agent: Meta-ExternalFetcher
+Allow: /
+Disallow: /api/
+
 User-agent: cohere-ai
+Allow: /
+Disallow: /api/
+
+User-agent: cohere-training-data-crawler
+Allow: /
+Disallow: /api/
+
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
+User-agent: YouBot
+Allow: /
+Disallow: /api/
+
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /api/
+
+User-agent: MistralAI-User
+Allow: /
+Disallow: /api/
+
+User-agent: Diffbot
+Allow: /
+Disallow: /api/
+
+User-agent: Timpibot
+Allow: /
+Disallow: /api/
+
+User-agent: ImagesiftBot
+Allow: /
+Disallow: /api/
+
+User-agent: Webzio-Extended
 Allow: /
 Disallow: /api/
 
