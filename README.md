@@ -114,3 +114,23 @@ python3 -m http.server 8123
 
 官方站点只有 <https://zhuzhiliao.icu>，其他域名上的部署均未经授权，与本项目和作者
 无关——详见[页首声明](#竹知了)。需要超出上述范围的授权，请先联系作者取得书面许可。
+
+### 关于 Issue 与讨论区
+
+**欢迎提交功能性的 Issue** —— Bug 反馈、浏览器兼容问题、物理或声音的调参建议、想让它
+更像真玩具的想法、实现细节的讨论，都很欢迎，也是这个区域存在的意义。提之前带上复现
+步骤和设备/浏览器信息会更容易被修掉。
+
+本仓库 Issue、Pull Request、Discussion 等区域的内容，由各自的发布者提交并对其独立负责。
+这些内容**不代表本项目作者的观点或立场**，作者未对其进行事先审查，也不对其真实性、
+合法性承担责任。
+
+与本项目技术无关的内容——尤其是针对他人或公众人物的评论、影射、人身攻击，以及其他
+违法违规言论——将被删除或隐藏，必要时锁定议题并封禁相关账号。
+
+*Functional issues are welcome: bug reports, browser compatibility problems, tuning
+suggestions, and implementation questions. Issues, pull requests, and discussions are
+submitted by their respective authors, who bear sole responsibility for their content;
+such content does not represent the views of this project's author and is not reviewed
+in advance. Off-topic content — in particular remarks targeting other individuals or
+public figures — will be removed.*
