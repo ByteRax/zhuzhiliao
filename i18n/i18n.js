@@ -130,6 +130,17 @@ export function detectLocale(env) {
     }
   } catch (_) { /* 访问 location 可能抛错，忽略继续 */ }
 
+  // 1b. URL pathname 语言前缀（SEO 多语言子路径协调）
+  //     /en/ /ja/ /ko/ 表示用户明确访问某语言版本；根路径 / 无前缀，跳过。
+  //     这保证爬虫抓到的静态 HTML 语言与运行时 i18n 语言一致，避免 localStorage 记忆导致的串语言。
+  try {
+    const loc = e.location || (!useStubs && typeof location !== 'undefined' ? location : null);
+    if (loc && typeof loc.pathname === 'string') {
+      const m = loc.pathname.match(/^\/(en|ja|ko)(\/|$)/);
+      if (m) return { locale: m[1], source: 'pathname', raw: m[1] };
+    }
+  } catch (_) { /* ignore */ }
+
   // 2. localStorage
   try {
     let raw = null;

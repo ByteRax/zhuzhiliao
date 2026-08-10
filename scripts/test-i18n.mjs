@@ -91,6 +91,17 @@ describe('detectLocale', () => {
     assert.equal(r.locale, 'ja');
     assert.equal(r.source, 'url');
   });
+  test('pathname 前缀优先于 localStorage（SEO 子路径协调）', () => {
+    // 用户访问 /ko/，即使 localStorage 记忆 en，也应优先 ko
+    const r = detectLocale({ location: { search: '', pathname: '/ko/' }, lsGet: () => 'en', languages: ['en-US'] });
+    assert.equal(r.locale, 'ko');
+    assert.equal(r.source, 'pathname');
+  });
+  test('根路径 / 无语言前缀，pathname 检测跳过', () => {
+    const r = detectLocale({ location: { search: '', pathname: '/' }, lsGet: () => 'ja', languages: ['en-US'] });
+    assert.equal(r.locale, 'ja'); // 走 localStorage
+    assert.equal(r.source, 'localStorage');
+  });
   test('localStorage 次优先级', () => {
     const r = detectLocale({ location: { search: '' }, lsGet: (k) => (k === 'app_locale' ? 'ko' : null), languages: ['en-US'] });
     assert.equal(r.locale, 'ko');
