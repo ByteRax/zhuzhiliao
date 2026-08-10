@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "Zhuzhiliao",
+    "sub": "Spin it and it chirps",
+    "seal": "Childhood Toy"
+  },
+  "hint": {
+    "main": "Press · Circle · Spin",
+    "sound": "🔊 With sound"
+  },
+  "meter": {
+    "rps": "turns / sec"
+  },
+  "btn": {
+    "auto": "Auto Spin",
+    "autoOff": "Stop",
+    "motion": "Shake Phone",
+    "motionOff": "Stop",
+    "motionUnavailable": "Unavailable",
+    "motionUnauthorized": "Not Authorized",
+    "d3On": "2D Cicada",
+    "d3Off": "3D Cicada",
+    "install": "Install",
+    "github": "GitHub Source",
+    "author": "Author"
+  },
+  "unlock": {
+    "tap": "🔊 Tap to enable sound"
+  },
+  "stats": {
+    "tmpl": "Now {online} online · {visitors} visitors · {visits} visits · {wahs} wahs worldwide · me {mine} wah"
+  },
+  "lore": {
+    "line1": "Bamboo membrane as drum · Rosin as string",
+    "line2": "Friction breeds vibration · Cavity amplifies"
+  },
+  "cry": {
+    "wah": "Wah"
+  },
+  "installTip": {
+    "iosLine1": "Open this page in Safari",
+    "iosLine2": "Tap Share {arrow} → “Add to Home Screen”",
+    "iosClose": "(Tap to close)",
+    "androidLine1": "Android Chrome/Edge: Menu {dots} → “Install app” or “Add to Home screen”",
+    "androidLine2": "Desktop Chrome: Install icon on the right of the address bar",
+    "androidLine3": "Safari: Share → “Add to Dock/Home Screen”",
+    "close": "(Tap to close)"
+  }
+}

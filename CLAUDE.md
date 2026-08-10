@@ -21,9 +21,18 @@ python3 -m http.server 8123
 # 局域网 HTTPS（手机"甩手机"体感模式需要安全上下文才有 devicemotion）
 python3 .claude/tls/serve-https.py        # 默认 8443，证书在 .claude/tls/，不进 git
 
+# i18n / SEO 生成与检查（零依赖 Node 脚本，手动运行）
+node scripts/build-seo.mjs        # 改了 src/index.html 或 locales/*/seo.json 后，生成四语 HTML
+node scripts/check-seo.mjs        # SEO 一致性检查（四语 key 一致 + hreflang + JSON-LD）
+node scripts/check-locales.mjs    # UI 资源 key 一致性检查
+node --test scripts/test-i18n.mjs # i18n 单元测试
+node --test scripts/test-i18n-integration.mjs  # i18n 集成测试
+
 # 部署计数后端
 cd worker && npx wrangler deploy
 ```
+
+> **注意**：根目录 `index.html` 和 `en/`/`ja/`/`ko/` 子目录的 `index.html` 都是 `scripts/build-seo.mjs` 的**生成物**（源模板是 `src/index.html`）。改 UI 代码请改 `src/index.html` 后跑 `build-seo.mjs`，不要直接改生成物。
 
 ## 架构
 

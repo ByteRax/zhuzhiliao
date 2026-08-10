@@ -1,0 +1,151 @@
+{
+  "title": "Cyber Zhuzhiliao · Spin & It Chirps | Free Online Bamboo Cicada Toy",
+  "description": "Cyber Zhuzhiliao: a zero-dependency web simulation of the bamboo cicada (pull-string cicada), a traditional folk toy. Press, spin in circles, and the faster it goes, the louder it chirps. Real audio samples plus physics simulation. Free in any browser.",
+  "keywords": "Zhuzhiliao,Cyber Zhuzhiliao,bamboo cicada,pull-string cicada,cicada toy,traditional toy,folk toy,online toy,web toy,free game,no download",
+  "appName": "Zhuzhiliao",
+  "ogLocale": "en_US",
+  "ogTitle": "Cyber Zhuzhiliao · Spin & It Chirps",
+  "ogDescription": "Remember the bamboo cicada that chirped when you spun it? Press, spin in circles — the faster it goes, the louder it gets. Free web version, no download, play instantly.",
+  "ogImageAlt": "Zhuzhiliao against a deep-blue night sky: a small bamboo cicada on a string being swung in a circle",
+  "twitterDescription": "A web simulation of the traditional bamboo cicada toy: press, spin in circles, the faster it goes the louder it chirps. Free, no download, play instantly.",
+  "llmsTitle": "Zhuzhiliao · AI Summary (llms.txt)",
+  "jsonld": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{site}}/#website",
+        "url": "{{site}}/",
+        "name": "Zhuzhiliao",
+        "alternateName": ["Cyber Zhuzhiliao", "Bamboo Cicada"],
+        "inLanguage": "en",
+        "publisher": { "@id": "https://www.imsai.cc/#person" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{site}}/#webpage",
+        "url": "{{site}}/",
+        "name": "Cyber Zhuzhiliao · Spin & It Chirps | Free Online Bamboo Cicada Toy",
+        "description": "Cyber Zhuzhiliao: a zero-dependency web simulation of the bamboo cicada (pull-string cicada), a traditional folk toy. Press, spin in circles, and the faster it goes, the louder it chirps. Real audio samples plus physics simulation. Free in any browser.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "{{site}}/#website" },
+        "primaryImageOfPage": { "@id": "{{site}}/#primaryimage" },
+        "datePublished": "2026-08-02",
+        "dateModified": "2026-08-04",
+        "author": { "@id": "https://www.imsai.cc/#person" },
+        "mainEntity": { "@id": "{{site}}/#app" },
+        "breadcrumb": { "@id": "{{site}}/#breadcrumb" },
+        "keywords": "Zhuzhiliao,Cyber Zhuzhiliao,bamboo cicada,pull-string cicada,cicada toy,traditional toy,folk toy",
+        "speakable": { "@type": "SpeakableSpecification", "cssSelector": ["#main-content h2", "#main-content p"] },
+        "about": [
+          { "@type": "Thing", "name": "Zhuzhiliao", "alternateName": ["Cyber Zhuzhiliao", "Bamboo Cicada", "Pull-string Cicada"], "description": "A traditional Chinese folk toy that chirps when swung, as the rosin-coated string stick-slips to vibrate the bamboo membrane and the tube cavity amplifies the sound." },
+          { "@type": "Thing", "name": "Traditional Chinese folk toy", "description": "Handmade playthings of bamboo, wood, paper or clay; the bamboo cicada is the sound-making kind." },
+          { "@type": "Thing", "name": "Stick-slip phenomenon", "sameAs": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon" }
+        ],
+        "citation": [
+          { "@type": "CreativeWork", "name": "Stick-slip phenomenon", "url": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon" },
+          { "@type": "CreativeWork", "name": "Web Audio API — MDN", "url": "https://developer.mozilla.org/docs/Web/API/Web_Audio_API" }
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "{{site}}/#primaryimage",
+        "url": "https://zzl.tanranran.cn/og-image.jpg",
+        "contentUrl": "https://zzl.tanranran.cn/og-image.jpg",
+        "width": 1200,
+        "height": 630,
+        "caption": "Zhuzhiliao against a deep-blue night sky: a small bamboo cicada on a string being swung in a circle",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "{{site}}/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Zhuzhiliao", "item": "{{site}}/" }
+        ]
+      },
+      {
+        "@type": ["WebApplication", "VideoGame"],
+        "@id": "{{site}}/#app",
+        "name": "Zhuzhiliao",
+        "alternateName": ["Cyber Zhuzhiliao", "Bamboo Cicada", "Pull-string Cicada"],
+        "url": "{{site}}/",
+        "description": "A zero-dependency web simulation of the bamboo cicada (pull-string cicada), a traditional folk toy — also called “Cyber Zhuzhiliao”. Spin it and it chirps: real physics plus real audio samples, the faster it spins the louder it gets. Free, ad-free, no install; works in mobile and desktop browsers, open source.",
+        "inLanguage": "en",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "A modern browser with JavaScript, HTML5 Canvas and Web Audio support",
+        "gamePlatform": ["Web Browser", "Mobile", "Desktop"],
+        "genre": ["Casual", "Toy Simulation"],
+        "playMode": "https://schema.org/SinglePlayer",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY", "availability": "https://schema.org/InStock" },
+        "image": "https://zzl.tanranran.cn/og-image.jpg",
+        "screenshot": { "@type": "ImageObject", "url": "https://zzl.tanranran.cn/og-image.jpg", "inLanguage": "en" },
+        "datePublished": "2026-08-02",
+        "dateModified": "2026-08-04",
+        "featureList": [
+          "Press and spin in circles to make it chirp; higher speed means louder, faster sound",
+          "Auto-spin mode for hands-free play",
+          "Shake-phone motion mode on supported devices (requires HTTPS and sensor permission)",
+          "Optional 3D WebGL cicada layer with automatic 2D fallback",
+          "Real-time worldwide wah counter and online count",
+          "Installable as a PWA for offline play"
+        ],
+        "author": { "@id": "https://www.imsai.cc/#person" },
+        "publisher": { "@id": "https://www.imsai.cc/#person" },
+        "creator": { "@id": "https://www.imsai.cc/#person" },
+        "sameAs": ["https://github.com/imsai-sh/zhuzhiliao"],
+        "softwareHelp": { "@id": "{{site}}/#how-to-play" },
+        "license": "https://github.com/imsai-sh/zhuzhiliao",
+        "keywords": "Zhuzhiliao,Cyber Zhuzhiliao,bamboo cicada,pull-string cicada,traditional toy,folk toy,web toy,online game",
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "{{site}}/#how-to-play",
+        "name": "How to play Zhuzhiliao",
+        "description": "Press the bamboo stick on the screen and swing in a circle; the faster it spins, the louder Zhuzhiliao chirps.",
+        "totalTime": "PT1M",
+        "estimatedCost": { "@type": "MonetaryAmount", "currency": "CNY", "value": "0" },
+        "tool": { "@type": "HowToTool", "name": "Any browser with HTML5 Canvas and Web Audio support" },
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "inLanguage": "en",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Hold the stick", "text": "Press and hold the bamboo stick on the screen." },
+          { "@type": "HowToStep", "position": 2, "name": "Swing in a circle", "text": "Swing it in a circle; the faster it spins, the louder and quicker it chirps." },
+          { "@type": "HowToStep", "position": 3, "name": "Try other modes", "text": "You can also tap Auto Spin, or use the Shake Phone motion mode on supported devices." }
+        ],
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "{{site}}/#faq",
+        "inLanguage": "en",
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "mainEntity": [
+          { "@type": "Question", "name": "Do I need to download or install Zhuzhiliao?", "acceptedAnswer": { "@type": "Answer", "text": "No. The page has no build step or dependencies — just open it in a browser. The main page can also be saved and opened offline." } },
+          { "@type": "Question", "name": "Why is there no sound the first time?", "acceptedAnswer": { "@type": "Answer", "text": "Browsers usually require a user click or touch before playing sound; tap the page or “Tap to enable sound” to unlock it." } },
+          { "@type": "Question", "name": "Why can’t I use the Shake Phone mode?", "acceptedAnswer": { "@type": "Answer", "text": "This mode relies on motion sensors, requires HTTPS or a local file, and iPhone may need permission on first use." } },
+          { "@type": "Question", "name": "What kind of toy is Zhuzhiliao?", "acceptedAnswer": { "@type": "Answer", "text": "Zhuzhiliao is a traditional Chinese folk toy, also known regionally as Bamboo Cicada or pull-string cicada. A bamboo tube is covered with a membrane; a rosin-coated string ties the membrane center to a small bamboo stick. When you hold the stick and swing it in circles, the string stick-slips on the rosin, vibrating the membrane, and the bamboo cavity amplifies it into a cicada-like “wah-wah” sound." } },
+          { "@type": "Question", "name": "What is Cyber Zhuzhiliao?", "acceptedAnswer": { "@type": "Answer", "text": "“Cyber Zhuzhiliao” is the nickname for this kind of web simulation: instead of buying a real bamboo toy, you press and spin in the browser to hear the exact same “wah-wah” sound, taken from real Zhuzhiliao recordings." } },
+          { "@type": "Question", "name": "Is Zhuzhiliao paid or ad-supported?", "acceptedAnswer": { "@type": "Answer", "text": "Completely free, no ads, no in-app purchases, no registration. The code is open source on GitHub (imsai-sh/zhuzhiliao)." } },
+          { "@type": "Question", "name": "Is the sound synthesized or a real recording?", "acceptedAnswer": { "@type": "Answer", "text": "The main source is a real Zhuzhiliao recording sample, embedded in the page as a seamless loop, with playback rate driven by spin speed; only when the sample fails to decode does it fall back to Web Audio synthesis." } },
+          { "@type": "Question", "name": "Can I play Zhuzhiliao offline?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. A Service Worker caches core resources, and you can install it to the desktop as a PWA; saving index.html locally and opening it in a browser works too." } },
+          { "@type": "Question", "name": "Does Zhuzhiliao collect my data?", "acceptedAnswer": { "@type": "Answer", "text": "Only anonymous site-wide wah counts, visits, and online users are counted; your personal wah count is stored only in the browser localStorage, with no login or personal identity information collected." } }
+        ],
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.imsai.cc/#person",
+        "name": "imsai",
+        "url": "https://www.imsai.cc/",
+        "description": "Independent developer and author of the Zhuzhiliao web simulation: field-records real Zhuzhiliao toy audio and implements its rope-and-particle physics model.",
+        "knowsAbout": ["Traditional folk toys", "Web Audio", "Physics simulation", "Frontend development"],
+        "sameAs": ["https://github.com/imsai-sh"]
+      }
+    ]
+  }
+}

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{{html.lang}}">
 <head>
 <meta charset="UTF-8">
-<base href="https://zzl.tanranran.cn/">
+<base href="{{seo.baseHref}}">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0a1028">
 <!-- 标题与摘要放在 head 最前，确保只解析头部前几 KB 的爬虫（尤其国内引擎与社交卡片）也能读到 -->
-<title>赛博竹知了 · 一转就哇哇叫｜竹蝉玩具免费在线玩</title>
-<meta name="description" content="赛博竹知了：竹知了是竹蝉、拉线蝉等传统玩具的网页模拟版，按住画圈甩起来，转得越快叫得越响。真实录音采样结合物理模拟，手机和电脑浏览器免费直开即玩。">
-<meta name="keywords" content="竹知了,赛博竹知了,竹蝉,拉线蝉,知了哇呜,竹知了在线玩,竹知了网页版,一转就哇哇叫,传统玩具,民间玩具,怀旧玩具">
+<title>{{seo.title}}</title>
+<meta name="description" content="{{seo.description}}">
+<meta name="keywords" content="{{seo.keywords}}">
 <!-- 各搜索引擎站长平台的站点验证 -->
 <meta name="google-site-verification" content="ZhYhei0rhAxBfMAAoMvA-bcV-noSJGCxzs9zCWPcQlk">
 <meta name="baidu-site-verification" content="codeva-Hjw1QGHLd3">
@@ -28,376 +28,44 @@
 <meta name="applicable-device" content="pc,mobile">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="application-name" content="竹知了">
+<meta name="application-name" content="{{seo.appName}}">
 <meta name="author" content="imsai">
 <meta name="copyright" content="imsai">
-<link rel="canonical" href="https://zzl.tanranran.cn/">
+<link rel="canonical" href="{{seo.canonical}}">
 <!-- 计数接口跨域回源，提前建连减少首帧后的等待 -->
 <link rel="dns-prefetch" href="https://zhuzhiliao.imsai.cc">
 <link rel="preconnect" href="https://zhuzhiliao.imsai.cc" crossorigin>
 <!-- 多语言 hreflang 互链（四语 + x-default 指向中文根路径） -->
-<link rel="alternate" hreflang="zh-Hans" href="https://zzl.tanranran.cn/">
-<link rel="alternate" hreflang="en" href="https://zzl.tanranran.cn/en/">
-<link rel="alternate" hreflang="ja" href="https://zzl.tanranran.cn/ja/">
-<link rel="alternate" hreflang="ko" href="https://zzl.tanranran.cn/ko/">
-<link rel="alternate" hreflang="x-default" href="https://zzl.tanranran.cn/">
+{{seo.hreflang}}
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <!-- GEO：给生成式 AI 引擎的站点摘要（llms.txt 约定） -->
-<link rel="alternate" type="text/plain" href="/llms.txt" title="竹知了 · AI 摘要（llms.txt）">
+<link rel="alternate" type="text/plain" href="{{seo.llmsHref}}" title="{{seo.llmsTitle}}">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">
+<link rel="manifest" href="{{seo.manifestHref}}">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="竹知了">
+<meta name="apple-mobile-web-app-title" content="{{seo.appName}}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://zzl.tanranran.cn/">
-<meta property="og:site_name" content="竹知了">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="赛博竹知了 · 一转就哇哇叫">
-<meta property="og:description" content="还记得小时候甩起来哇哇叫的竹蝉吗？按住画圈甩起来，转得越快叫得越响。免费网页版，无需下载，直开即玩。">
+<meta property="og:url" content="{{seo.canonical}}">
+<meta property="og:site_name" content="{{seo.appName}}">
+<meta property="og:locale" content="{{seo.ogLocale}}">
+<meta property="og:title" content="{{seo.ogTitle}}">
+<meta property="og:description" content="{{seo.ogDescription}}">
 <meta property="og:image" content="https://zzl.tanranran.cn/og-image.jpg">
 <meta property="og:image:secure_url" content="https://zzl.tanranran.cn/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="深蓝夜色背景中的竹知了：一枚竹筒小蝉被细线牵着画圈甩动">
+<meta property="og:image:alt" content="{{seo.ogImageAlt}}">
 <meta property="og:updated_time" content="2026-08-04T00:00:00+08:00">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="赛博竹知了 · 一转就哇哇叫">
-<meta name="twitter:description" content="传统竹蝉玩具的网页模拟版：按住画圈甩起来，转得越快叫得越响。免费、无需下载，直开即玩。">
+<meta name="twitter:title" content="{{seo.ogTitle}}">
+<meta name="twitter:description" content="{{seo.twitterDescription}}">
 <meta name="twitter:image" content="https://zzl.tanranran.cn/og-image.jpg">
-<meta name="twitter:image:alt" content="深蓝夜色背景中的竹知了：一枚竹筒小蝉被细线牵着画圈甩动">
+<meta name="twitter:image:alt" content="{{seo.ogImageAlt}}">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://zzl.tanranran.cn/#website",
-      "url": "https://zzl.tanranran.cn/",
-      "name": "竹知了",
-      "alternateName": [
-        "竹知了 · 一转就哇哇叫",
-        "赛博竹知了"
-      ],
-      "inLanguage": "zh-CN",
-      "publisher": {
-        "@id": "https://www.imsai.cc/#person"
-      }
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://zzl.tanranran.cn/#webpage",
-      "url": "https://zzl.tanranran.cn/",
-      "name": "赛博竹知了 · 一转就哇哇叫｜竹蝉玩具免费在线玩",
-      "description": "赛博竹知了：竹知了是竹蝉、拉线蝉等传统玩具的网页模拟版，按住画圈甩起来，转得越快叫得越响。真实录音采样结合物理模拟，手机和电脑浏览器免费直开即玩。",
-      "inLanguage": "zh-CN",
-      "isPartOf": {
-        "@id": "https://zzl.tanranran.cn/#website"
-      },
-      "primaryImageOfPage": {
-        "@id": "https://zzl.tanranran.cn/#primaryimage"
-      },
-      "datePublished": "2026-08-02",
-      "dateModified": "2026-08-04",
-      "author": {
-        "@id": "https://www.imsai.cc/#person"
-      },
-      "mainEntity": {
-        "@id": "https://zzl.tanranran.cn/#app"
-      },
-      "breadcrumb": {
-        "@id": "https://zzl.tanranran.cn/#breadcrumb"
-      },
-      "keywords": "竹知了,赛博竹知了,竹蝉,拉线蝉,知了哇呜,竹知了在线玩,竹知了网页版,传统玩具,民间玩具",
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": [
-          "#main-content h2",
-          "#main-content p"
-        ]
-      },
-      "about": [
-        {
-          "@type": "Thing",
-          "name": "竹知了",
-          "alternateName": [
-            "赛博竹知了",
-            "竹蝉",
-            "拉线蝉",
-            "知了哇呜"
-          ],
-          "description": "中国传统民间玩具，甩动时因松香线黏滑摩擦带动竹膜振动、竹筒共鸣而发出类似蝉鸣的“哇哇”声。"
-        },
-        {
-          "@type": "Thing",
-          "name": "中国传统民间玩具",
-          "description": "以竹、木、纸、泥等天然材料手工制作的民间童玩，竹知了是其中会发声的一类。"
-        },
-        {
-          "@type": "Thing",
-          "name": "黏滑摩擦",
-          "sameAs": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon"
-        }
-      ],
-      "citation": [
-        {
-          "@type": "CreativeWork",
-          "name": "Stick-slip phenomenon",
-          "url": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon"
-        },
-        {
-          "@type": "CreativeWork",
-          "name": "Web Audio API — MDN",
-          "url": "https://developer.mozilla.org/docs/Web/API/Web_Audio_API"
-        }
-      ]
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://zzl.tanranran.cn/#primaryimage",
-      "url": "https://zzl.tanranran.cn/og-image.jpg",
-      "contentUrl": "https://zzl.tanranran.cn/og-image.jpg",
-      "width": 1200,
-      "height": 630,
-      "caption": "深蓝夜色背景中的竹知了：一枚竹筒小蝉被细线牵着画圈甩动",
-      "inLanguage": "zh-CN"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://zzl.tanranran.cn/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "竹知了",
-          "item": "https://zzl.tanranran.cn/"
-        }
-      ]
-    },
-    {
-      "@type": [
-        "WebApplication",
-        "VideoGame"
-      ],
-      "@id": "https://zzl.tanranran.cn/#app",
-      "name": "竹知了",
-      "alternateName": [
-        "赛博竹知了",
-        "竹蝉",
-        "拉线蝉",
-        "知了哇呜"
-      ],
-      "url": "https://zzl.tanranran.cn/",
-      "description": "传统民间玩具“竹知了”（竹蝉/拉线蝉）的网页模拟版，也被叫作“赛博竹知了”——甩起来会哇哇叫的竹筒玩具。真实物理模拟加真实录音采样，转得越快叫得越响。免费、无广告、无需下载安装，手机和电脑浏览器打开即玩，代码开源。",
-      "inLanguage": "zh-CN",
-      "applicationCategory": "GameApplication",
-      "operatingSystem": "Any",
-      "browserRequirements": "需要支持 JavaScript、HTML5 Canvas 与 Web Audio 的现代浏览器",
-      "gamePlatform": [
-        "Web Browser",
-        "Mobile",
-        "Desktop"
-      ],
-      "genre": [
-        "休闲",
-        "玩具模拟"
-      ],
-      "playMode": "https://schema.org/SinglePlayer",
-      "isAccessibleForFree": true,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "CNY",
-        "availability": "https://schema.org/InStock"
-      },
-      "image": "https://zzl.tanranran.cn/og-image.jpg",
-      "screenshot": {
-        "@type": "ImageObject",
-        "url": "https://zzl.tanranran.cn/og-image.jpg",
-        "inLanguage": "zh-CN"
-      },
-      "datePublished": "2026-08-02",
-      "dateModified": "2026-08-04",
-      "featureList": [
-        "按住画圈甩动发声，转速越高声音越响越急",
-        "自动甩模式，无需持续操作",
-        "手机甩手机体感模式（需 HTTPS 与动作传感器授权）",
-        "可选 3D 小蝉 WebGL 渲染层，不支持时自动回落 2D",
-        "全站实时哇数计数与在线人数",
-        "可安装为 PWA，支持离线游玩"
-      ],
-      "author": {
-        "@id": "https://www.imsai.cc/#person"
-      },
-      "publisher": {
-        "@id": "https://www.imsai.cc/#person"
-      },
-      "creator": {
-        "@id": "https://www.imsai.cc/#person"
-      },
-      "sameAs": [
-        "https://github.com/imsai-sh/zhuzhiliao"
-      ],
-      "softwareHelp": {
-        "@id": "https://zzl.tanranran.cn/#how-to-play"
-      },
-      "license": "https://github.com/imsai-sh/zhuzhiliao",
-      "keywords": "竹知了,赛博竹知了,竹蝉,拉线蝉,传统玩具,民间玩具,怀旧玩具,网页玩具,在线小游戏",
-      "mainEntityOfPage": {
-        "@id": "https://zzl.tanranran.cn/#webpage"
-      },
-      "isPartOf": {
-        "@id": "https://zzl.tanranran.cn/#website"
-      }
-    },
-    {
-      "@type": "HowTo",
-      "@id": "https://zzl.tanranran.cn/#how-to-play",
-      "name": "怎么玩竹知了",
-      "description": "按住画面中的竹签画圈甩动，转速越高，竹知了叫得越响越急。",
-      "totalTime": "PT1M",
-      "estimatedCost": {
-        "@type": "MonetaryAmount",
-        "currency": "CNY",
-        "value": "0"
-      },
-      "tool": {
-        "@type": "HowToTool",
-        "name": "任意支持 HTML5 Canvas 与 Web Audio 的浏览器"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://zzl.tanranran.cn/#webpage"
-      },
-      "inLanguage": "zh-CN",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "position": 1,
-          "name": "按住竹签",
-          "text": "按住画面中的竹签。"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 2,
-          "name": "画圈甩动",
-          "text": "沿圆圈方向甩动，转速越高，声音越响越急。"
-        },
-        {
-          "@type": "HowToStep",
-          "position": 3,
-          "name": "选择其他模式",
-          "text": "也可以点击自动甩，或在支持的手机上使用甩手机体感模式。"
-        }
-      ],
-      "isPartOf": {
-        "@id": "https://zzl.tanranran.cn/#website"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://zzl.tanranran.cn/#faq",
-      "inLanguage": "zh-CN",
-      "mainEntityOfPage": {
-        "@id": "https://zzl.tanranran.cn/#webpage"
-      },
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "竹知了需要下载安装吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "不需要。页面无需构建或安装依赖，浏览器直开即可玩，主页面也支持保存后离线打开。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "为什么第一次没有声音？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "浏览器通常要求用户先点击或触摸页面才能播放声音；点一下页面或“点一下开声”即可解锁。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "手机为什么不能使用甩手机模式？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "该模式依赖动作传感器，需要 HTTPS 或本地文件，并且 iPhone 可能需要在首次使用时授权。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "竹知了是什么玩具？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "竹知了是中国传统民间玩具，各地也叫竹蝉、拉线蝉、知了哇呜。竹筒一端蒙竹膜，膜心系一根涂松香的线，线另一端拴小竹签；抓着竹签甩圈时线在松香上黏滑摩擦，带动竹膜振动、竹筒空腔共鸣，发出酷似蝉鸣的“哇哇”声。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "什么是赛博竹知了？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "“赛博竹知了”是网友对本站这类竹知了网页模拟版的叫法：不用买真的竹筒玩具，在浏览器里按住画圈甩起来就能听见一模一样的“哇哇”声。声音来自真实竹知了录音采样，甩动手感来自绳系质点物理模拟。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "竹知了收费或有广告吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "完全免费，无广告、无内购、无需注册。代码开源在 GitHub（imsai-sh/zhuzhiliao）。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "竹知了的声音是合成的还是真实录音？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "主音源是真实竹知了玩具的录音采样，内嵌在页面中无缝循环，回放速率随甩动转速变化；采样解码失败时才回退到纯 Web Audio 合成音。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "可以离线玩竹知了吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "可以。页面通过 Service Worker 缓存核心资源，也可安装到桌面作为 PWA 使用；把 index.html 保存到本地用浏览器直开同样能玩。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "竹知了会收集我的数据吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "只统计匿名的全站哇数、访问数与在线人数，个人哇数仅保存在浏览器 localStorage，不需要登录，不收集个人身份信息。"
-          }
-        }
-      ],
-      "isPartOf": {
-        "@id": "https://zzl.tanranran.cn/#website"
-      }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://www.imsai.cc/#person",
-      "name": "imsai",
-      "url": "https://www.imsai.cc/",
-      "description": "独立开发者，竹知了网页模拟版的作者：实地录制真实竹知了玩具音源，并实现其绳系质点物理模型。",
-      "knowsAbout": [
-        "传统民间玩具",
-        "Web Audio",
-        "物理模拟",
-        "前端开发"
-      ],
-      "sameAs": [
-        "https://github.com/imsai-sh"
-      ]
-    }
-  ]
-}
+{{jsonld}}
 </script>
 <script
   defer

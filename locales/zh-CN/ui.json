@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "竹知了",
+    "sub": "一转，就哇哇地叫",
+    "seal": "儿时玩物"
+  },
+  "hint": {
+    "main": "按住 · 画圈 · 甩起来",
+    "sound": "🔊 有声音"
+  },
+  "meter": {
+    "rps": "圈 / 秒"
+  },
+  "btn": {
+    "auto": "自动甩",
+    "autoOff": "停一停",
+    "motion": "甩手机",
+    "motionOff": "停一停",
+    "motionUnavailable": "不可用",
+    "motionUnauthorized": "未授权",
+    "d3On": "手绘小蝉",
+    "d3Off": "3D 小蝉",
+    "install": "装进桌面",
+    "github": "开源 GitHub",
+    "author": "作者主页"
+  },
+  "unlock": {
+    "tap": "🔊 点一下开声"
+  },
+  "stats": {
+    "tmpl": "此刻 {online} 人 · 来客 {visitors} · 访问 {visits} · 全球 {wahs} 哇 · 我 {mine} 哇"
+  },
+  "lore": {
+    "line1": "竹膜为鼓 · 松香为弦",
+    "line2": "摩擦生振 · 膜腔共鸣"
+  },
+  "cry": {
+    "wah": "哇"
+  },
+  "installTip": {
+    "iosLine1": "用 Safari 打开本页",
+    "iosLine2": "点分享 {arrow} → 「添加到主屏幕」",
+    "iosClose": "(点此关闭)",
+    "androidLine1": "安卓 Chrome/Edge：菜单 {dots} → 「安装应用」或「添加到主屏幕」",
+    "androidLine2": "桌面 Chrome：地址栏右侧安装图标",
+    "androidLine3": "Safari：分享 → 「添加到程序坞/主屏幕」",
+    "close": "(点此关闭)"
+  }
+}

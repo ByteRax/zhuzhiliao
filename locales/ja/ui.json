@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "Zhuzhiliao",
+    "sub": "回せば、ワーワー鳴く",
+    "seal": "幼い日の玩具"
+  },
+  "hint": {
+    "main": "押して · 丸く · 振る",
+    "sound": "🔊 音あり"
+  },
+  "meter": {
+    "rps": "回転 / 秒"
+  },
+  "btn": {
+    "auto": "自動で回す",
+    "autoOff": "止める",
+    "motion": "スマホを振る",
+    "motionOff": "止める",
+    "motionUnavailable": "使用不可",
+    "motionUnauthorized": "許可されません",
+    "d3On": "2D セミ",
+    "d3Off": "3D セミ",
+    "install": "インストール",
+    "github": "GitHub ソース",
+    "author": "作者"
+  },
+  "unlock": {
+    "tap": "🔊 タップで音を鳴らす"
+  },
+  "stats": {
+    "tmpl": "現在 {online} 人 · 訪問者 {visitors} · 訪問 {visits} · 世界で {wahs} ワー · あなた {mine} ワー"
+  },
+  "lore": {
+    "line1": "竹膜は鼓 · 松やに弦",
+    "line2": "摩擦は振を生む · 空胴は響く"
+  },
+  "cry": {
+    "wah": "ワー"
+  },
+  "installTip": {
+    "iosLine1": "Safari でこのページを開く",
+    "iosLine2": "共有 {arrow} →「ホーム画面に追加」",
+    "iosClose": "(タップで閉じる)",
+    "androidLine1": "Android Chrome/Edge：メニュー {dots} →「アプリをインストール」または「ホーム画面に追加」",
+    "androidLine2": "デスクトップ Chrome：アドレスバー右側のインストールアイコン",
+    "androidLine3": "Safari：共有 →「ドック／ホーム画面に追加」",
+    "close": "(タップで閉じる)"
+  }
+}

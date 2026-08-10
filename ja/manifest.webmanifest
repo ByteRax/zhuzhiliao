@@ -1,0 +1,15 @@
+{
+  "name": "Zhuzhiliao",
+  "short_name": "Zhuzhiliao",
+  "description": "サイバー Zhuzhiliao：竹セミなど伝統的な民間玩具の依存関係ゼロのウェブシミュレーション版。押して丸く振ると、回るほど大きく鳴ります。",
+  "start_url": "/ja/",
+  "scope": "/ja/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1028",
+  "theme_color": "#0a1028",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

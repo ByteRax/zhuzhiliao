@@ -4,15 +4,66 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://zzl.tanranran.cn/</loc>
-    <lastmod>2026-08-04</lastmod>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zzl.tanranran.cn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zzl.tanranran.cn/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zzl.tanranran.cn/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://zzl.tanranran.cn/ko/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://zzl.tanranran.cn/"/>
     <image:image>
       <image:loc>https://zzl.tanranran.cn/og-image.jpg</image:loc>
       <image:title>赛博竹知了 · 一转就哇哇叫</image:title>
       <image:caption>深蓝夜色背景中的竹知了：一枚竹筒小蝉被细线牵着画圈甩动</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zzl.tanranran.cn/en/</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zzl.tanranran.cn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zzl.tanranran.cn/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zzl.tanranran.cn/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://zzl.tanranran.cn/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zzl.tanranran.cn/"/>
+    <image:image>
+      <image:loc>https://zzl.tanranran.cn/og-image.jpg</image:loc>
+      <image:title>Cyber Zhuzhiliao · Spin &amp; It Chirps</image:title>
+      <image:caption>Zhuzhiliao against a deep-blue night sky: a small bamboo cicada on a string being swung in a circle</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zzl.tanranran.cn/ja/</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zzl.tanranran.cn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zzl.tanranran.cn/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zzl.tanranran.cn/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://zzl.tanranran.cn/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zzl.tanranran.cn/"/>
+    <image:image>
+      <image:loc>https://zzl.tanranran.cn/og-image.jpg</image:loc>
+      <image:title>サイバー Zhuzhiliao · 回せばワーワー鳴く</image:title>
+      <image:caption>深い青の夜空を背景にした Zhuzhiliao：紐で繋がれた小さな竹のセミが円を描いて振られている</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://zzl.tanranran.cn/ko/</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://zzl.tanranran.cn/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://zzl.tanranran.cn/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://zzl.tanranran.cn/ja/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://zzl.tanranran.cn/ko/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://zzl.tanranran.cn/"/>
+    <image:image>
+      <image:loc>https://zzl.tanranran.cn/og-image.jpg</image:loc>
+      <image:title>사이버 Zhuzhiliao · 돌리면 와와 소리가 나요</image:title>
+      <image:caption>짙은 파란 밤하늘을 배경으로 한 Zhuzhiliao: 줄에 매달린 작은 대나무 매미가 원을 그리며 흔들리고 있다</image:caption>
     </image:image>
   </url>
 </urlset>

@@ -1,0 +1,56 @@
+{
+  "summary": "About Zhuzhiliao",
+  "what": {
+    "q": "What is Zhuzhiliao?",
+    "a": "{brand} (Bamboo Cicada), also called pull-string cicada, is a traditional folk toy that chirps when spun. This page is a zero-dependency web simulation of it — the {cyber} that netizens call it — and works directly in mobile and desktop browsers.",
+    "cyber": "Cyber Zhuzhiliao"
+  },
+  "howToPlay": {
+    "q": "How to play?",
+    "step1": "Press and hold the bamboo stick on the screen.",
+    "step2": "Swing it in a circle; the faster it spins, the louder and quicker it chirps.",
+    "step3": "You can also tap “Auto Spin”, or use the “Shake Phone” motion mode on supported phones."
+  },
+  "howItWorks": {
+    "q": "Why does it chirp?",
+    "a": "The real toy connects the bamboo membrane and stick with a rosin-coated string. When swung, the rosin string undergoes stick-slip friction; the vibration travels to the membrane and is amplified by the bamboo tube cavity. This simulation uses rope-and-particle physics, Canvas 2D, and Web Audio, prioritizing real Zhuzhiliao recording samples."
+  },
+  "compatibility": {
+    "q": "Devices & Compatibility",
+    "a": "Works in modern desktop and mobile browsers, requiring JavaScript, HTML5 Canvas, and Web Audio. The phone motion mode requires HTTPS or a local file and may need motion sensor permission; when WebGL is unavailable it automatically falls back to 2D."
+  },
+  "faq": {
+    "title": "FAQ",
+    "q1": "Do I need to download or install anything?",
+    "a1": "No. The page has no build step or dependencies — just open it in a browser. The main page can also be saved and opened offline.",
+    "q2": "Why is there no sound the first time?",
+    "a2": "Browsers usually require a user click or touch before playing sound; tap the page or “Tap to enable sound” to unlock it.",
+    "q3": "Why can’t I use the Shake Phone mode?",
+    "a3": "This mode relies on motion sensors, requires HTTPS or a local file, and iPhone may need permission on first use.",
+    "q4": "What kind of toy is Zhuzhiliao?",
+    "a4": "Zhuzhiliao is a traditional Chinese folk toy, also known regionally as Bamboo Cicada or pull-string cicada. A bamboo tube is covered with a membrane at one end; a rosin-coated string is tied to the center of the membrane and to a small bamboo stick at the other end. When you hold the stick and swing it in circles, the string stick-slips on the rosin, vibrating the membrane, and the bamboo cavity amplifies it into a cicada-like “wah-wah” sound.",
+    "q5": "What is Cyber Zhuzhiliao?",
+    "a5": "“Cyber Zhuzhiliao” is the nickname netizens gave to this kind of web simulation: instead of buying a real bamboo toy, you press and spin in the browser to hear the exact same “wah-wah” sound, taken from real Zhuzhiliao recordings.",
+    "q6": "Is Zhuzhiliao paid or ad-supported?",
+    "a6": "Completely free, no ads, no in-app purchases, no registration; the code is open source on GitHub.",
+    "q7": "Is the sound synthesized or a real recording?",
+    "a7": "The main source is a real Zhuzhiliao recording sample, with playback rate driven by spin speed; only when the sample fails to decode does it fall back to Web Audio synthesis.",
+    "q8": "Can I play offline?",
+    "a8": "Yes. A Service Worker caches core resources, and you can “Install” it to the desktop as a PWA.",
+    "q9": "Does Zhuzhiliao collect my data?",
+    "a9": "Only anonymous site-wide wah counts, visits, and online users are counted; your personal wah count is stored only in the browser locally, with no personal identity information collected."
+  },
+  "sources": {
+    "title": "Author & Sources",
+    "byline": "Author {author} · Published {pub} · Updated {update}",
+    "desc": "The page’s audio source is field-recorded by the author from a real Zhuzhiliao toy; the physics model is implemented from measured proportions of the real object, and the code is fully open source.",
+    "ref1": "Sound principle reference: ",
+    "ref2": "Audio implementation reference: ",
+    "ref3": "Source code & implementation: "
+  },
+  "noscript": {
+    "title": "What is Zhuzhiliao?",
+    "p1": "Zhuzhiliao, known in many places as Bamboo Cicada or pull-string cicada, is a traditional folk toy that chirps “wah-wah” when spun: a bamboo tube is covered with a membrane, a rosin-coated string ties the membrane center to a small bamboo stick. Hold the stick and swing in circles — the string stick-slips on the rosin, vibration travels to the membrane, and the bamboo cavity amplifies it into that cicada-like “wah—wah—”.",
+    "p2": "This is its web simulation, the “Cyber Zhuzhiliao”: press and spin on the screen; the faster it spins, the louder it gets, with sound from real Zhuzhiliao recordings. Free, ad-free, open source — requires JavaScript to play."
+  }
+}
