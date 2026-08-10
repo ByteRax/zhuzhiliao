@@ -543,10 +543,10 @@ function renderByline(){
   el.textContent = tmpl;
 }
 // 动态加载 i18n 模块
-import('./i18n/i18n.js').then(({ init, applyTranslations, setLocale, getLocale, setReportError, LOCALE_EVENT }) => {
+import('./i18n/i18n.js?v=2').then(({ init, applyTranslations, setLocale, getLocale, setReportError, LOCALE_EVENT }) => {
   return init().then(() => {
     // 用真实实例覆盖兜底对象（保持 window.I18N 引用不变，同步代码无需改）
-    return import('./i18n/i18n.js').then((mod) => {
+    return import('./i18n/i18n.js?v=2').then((mod) => {
       Object.assign(window.I18N, mod);
       window.I18N._ready = true;
       applyTranslations();
