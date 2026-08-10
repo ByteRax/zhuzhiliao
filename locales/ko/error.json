@@ -1,0 +1,6 @@
+{
+  "audio": {
+    "noSound": "소리를 내려 해도 나지 않음",
+    "zombie": "상태는 running인데 소리 없음"
+  }
+}

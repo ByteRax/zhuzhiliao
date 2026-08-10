@@ -1,0 +1,6 @@
+{
+  "audio": {
+    "noSound": "Trying to sound but can’t",
+    "zombie": "State running but no sound"
+  }
+}

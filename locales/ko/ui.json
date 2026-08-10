@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "Zhuzhiliao",
+    "sub": "돌리면, 와와 소리가 나요",
+    "seal": "어릴 적 장난감"
+  },
+  "hint": {
+    "main": "누르고 · 원을 그리며 · 흔들기",
+    "sound": "🔊 소리 있음"
+  },
+  "meter": {
+    "rps": "회전 / 초"
+  },
+  "btn": {
+    "auto": "자동 돌리기",
+    "autoOff": "멈추기",
+    "motion": "흔들기",
+    "motionOff": "멈추기",
+    "motionUnavailable": "사용 불가",
+    "motionUnauthorized": "권한 없음",
+    "d3On": "2D 매미",
+    "d3Off": "3D 매미",
+    "install": "설치",
+    "github": "GitHub 소스",
+    "author": "작가"
+  },
+  "unlock": {
+    "tap": "🔊 탭하여 소리 켜기"
+  },
+  "stats": {
+    "tmpl": "현재 {online}명 · 방문자 {visitors} · 방문 {visits} · 전 세계 {wahs} 와 · 나 {mine} 와"
+  },
+  "lore": {
+    "line1": "대나무 막은 북 · 송진은 줄",
+    "line2": "마찰은 진동을 낳고 · 공동은 울린다"
+  },
+  "cry": {
+    "wah": "와"
+  },
+  "installTip": {
+    "iosLine1": "Safari로 이 페이지 열기",
+    "iosLine2": "공유 {arrow} → “홈 화면에 추가”",
+    "iosClose": "(탭하여 닫기)",
+    "androidLine1": "Android Chrome/Edge: 메뉴 {dots} → “앱 설치” 또는 “홈 화면에 추가”",
+    "androidLine2": "데스크톱 Chrome: 주소창 오른쪽의 설치 아이콘",
+    "androidLine3": "Safari: 공유 → “Dock/홈 화면에 추가”",
+    "close": "(탭하여 닫기)"
+  }
+}
