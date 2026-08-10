@@ -531,69 +531,69 @@
 <canvas id="cv3d" style="display:none"></canvas>
 
 <header class="masthead">
-  <h1>竹知了</h1>
-  <p class="sub">一转，就哇哇地叫</p>
-  <span class="seal">儿时玩物</span>
+  <h1 data-i18n="ui.brand.name">竹知了</h1>
+  <p class="sub" data-i18n="ui.brand.sub">一转，就哇哇地叫</p>
+  <span class="seal" data-i18n="ui.brand.seal">儿时玩物</span>
 </header>
 
 <main class="semantic-content" id="main-content">
   <details>
-    <summary>竹知了说明</summary>
+    <summary data-i18n="faq.summary">竹知了说明</summary>
     <article>
-    <h2>竹知了是什么？</h2>
-    <p><strong>竹知了</strong>也叫竹蝉、拉线蝉或知了哇呜，是一种甩起来会发出“哇哇”声的传统民间玩具。这个页面是它的零依赖网页模拟版，也就是网友说的<strong>赛博竹知了</strong>，支持手机和电脑浏览器直接打开。</p>
+    <h2 data-i18n="faq.what.q">竹知了是什么？</h2>
+    <p><span data-i18n-rich="faq.what.a" data-i18n-rich-strong="ui.brand.name:faq.what.cyber"><strong>竹知了</strong>也叫竹蝉、拉线蝉或知了哇呜，是一种甩起来会发出“哇哇”声的传统民间玩具。这个页面是它的零依赖网页模拟版，也就是网友说的<strong>赛博竹知了</strong>，支持手机和电脑浏览器直接打开。</span></p>
 
     <section aria-labelledby="how-to-play">
-      <h2 id="how-to-play">怎么玩竹知了？</h2>
+      <h2 id="how-to-play" data-i18n="faq.howToPlay.q">怎么玩竹知了？</h2>
       <ol>
-        <li>按住画面中的竹签。</li>
-        <li>沿圆圈方向甩动，转速越高，声音越响越急。</li>
-        <li>也可以点击“自动甩”，或在支持的手机上使用“甩手机”体感模式。</li>
+        <li data-i18n="faq.howToPlay.step1">按住画面中的竹签。</li>
+        <li data-i18n="faq.howToPlay.step2">沿圆圈方向甩动，转速越高，声音越响越急。</li>
+        <li data-i18n="faq.howToPlay.step3">也可以点击“自动甩”，或在支持的手机上使用“甩手机”体感模式。</li>
       </ol>
     </section>
 
     <section aria-labelledby="how-it-works">
-      <h2 id="how-it-works">竹知了为什么会哇哇叫？</h2>
-      <p>真实玩具用涂有松香的线连接竹膜和竹签。甩动时，松香线发生黏滑摩擦，振动传到竹膜，再由竹筒空腔共鸣放大。本模拟使用绳系质点物理、Canvas 2D 和 Web Audio，并优先播放真实竹知了录音采样。</p>
+      <h2 id="how-it-works" data-i18n="faq.howItWorks.q">竹知了为什么会哇哇叫？</h2>
+      <p data-i18n="faq.howItWorks.a">真实玩具用涂有松香的线连接竹膜和竹签。甩动时，松香线发生黏滑摩擦，振动传到竹膜，再由竹筒空腔共鸣放大。本模拟使用绳系质点物理、Canvas 2D 和 Web Audio，并优先播放真实竹知了录音采样。</p>
     </section>
 
     <section aria-labelledby="compatibility">
-      <h2 id="compatibility">设备与兼容性</h2>
-      <p>现代桌面和移动浏览器均可游玩，需要 JavaScript、HTML5 Canvas 和 Web Audio。手机体感模式需要 HTTPS 或本地文件，并可能需要授权动作传感器；WebGL 不可用时会自动回落到 2D 画面。</p>
+      <h2 id="compatibility" data-i18n="faq.compatibility.q">设备与兼容性</h2>
+      <p data-i18n="faq.compatibility.a">现代桌面和移动浏览器均可游玩，需要 JavaScript、HTML5 Canvas 和 Web Audio。手机体感模式需要 HTTPS 或本地文件，并可能需要授权动作传感器；WebGL 不可用时会自动回落到 2D 画面。</p>
     </section>
 
     <section aria-labelledby="faq">
-      <h2 id="faq">常见问题</h2>
+      <h2 id="faq" data-i18n="faq.faq.title">常见问题</h2>
       <dl>
-        <dt>竹知了需要下载安装吗？</dt>
-        <dd>不需要。页面无需构建或安装依赖，浏览器直开即可玩，主页面也支持保存后离线打开。</dd>
-        <dt>为什么第一次没有声音？</dt>
-        <dd>浏览器通常要求用户先点击或触摸页面才能播放声音；点一下页面或“点一下开声”即可解锁。</dd>
-        <dt>手机为什么不能使用甩手机模式？</dt>
-        <dd>该模式依赖动作传感器，需要 HTTPS 或本地文件，并且 iPhone 可能需要在首次使用时授权。</dd>
-        <dt>竹知了是什么玩具？</dt>
-        <dd>竹知了是中国传统民间玩具，各地也叫竹蝉、拉线蝉、知了哇呜。竹筒一端蒙竹膜，膜心系一根涂松香的线，线另一端拴小竹签；抓着竹签甩圈时线在松香上黏滑摩擦，带动竹膜振动、竹筒空腔共鸣，发出酷似蝉鸣的“哇哇”声。</dd>
-        <dt>什么是赛博竹知了？</dt>
-        <dd>“赛博竹知了”是网友对这类竹知了网页模拟版的叫法：不用买真的竹筒玩具，在浏览器里按住画圈甩起来就能听见一模一样的“哇哇”声，声音来自真实竹知了录音采样。</dd>
-        <dt>竹知了收费或有广告吗？</dt>
-        <dd>完全免费，无广告、无内购、无需注册，代码开源在 GitHub。</dd>
-        <dt>竹知了的声音是合成的还是真实录音？</dt>
-        <dd>主音源是真实竹知了玩具的录音采样，随转速改变回放速率；采样解码失败时才回退到 Web Audio 合成音。</dd>
-        <dt>可以离线玩吗？</dt>
-        <dd>可以。Service Worker 会缓存核心资源，也能“装进桌面”作为 PWA 使用。</dd>
-        <dt>竹知了会收集我的数据吗？</dt>
-        <dd>只统计匿名的全站哇数、访问数与在线人数；个人哇数仅存在浏览器本地，不收集个人身份信息。</dd>
+        <dt data-i18n="faq.faq.q1">竹知了需要下载安装吗？</dt>
+        <dd data-i18n="faq.faq.a1">不需要。页面无需构建或安装依赖，浏览器直开即可玩，主页面也支持保存后离线打开。</dd>
+        <dt data-i18n="faq.faq.q2">为什么第一次没有声音？</dt>
+        <dd data-i18n="faq.faq.a2">浏览器通常要求用户先点击或触摸页面才能播放声音；点一下页面或“点一下开声”即可解锁。</dd>
+        <dt data-i18n="faq.faq.q3">手机为什么不能使用甩手机模式？</dt>
+        <dd data-i18n="faq.faq.a3">该模式依赖动作传感器，需要 HTTPS 或本地文件，并且 iPhone 可能需要在首次使用时授权。</dd>
+        <dt data-i18n="faq.faq.q4">竹知了是什么玩具？</dt>
+        <dd data-i18n="faq.faq.a4">竹知了是中国传统民间玩具，各地也叫竹蝉、拉线蝉、知了哇呜。竹筒一端蒙竹膜，膜心系一根涂松香的线，线另一端拴小竹签；抓着竹签甩圈时线在松香上黏滑摩擦，带动竹膜振动、竹筒空腔共鸣，发出酷似蝉鸣的“哇哇”声。</dd>
+        <dt data-i18n="faq.faq.q5">什么是赛博竹知了？</dt>
+        <dd data-i18n="faq.faq.a5">“赛博竹知了”是网友对这类竹知了网页模拟版的叫法：不用买真的竹筒玩具，在浏览器里按住画圈甩起来就能听见一模一样的“哇哇”声，声音来自真实竹知了录音采样。</dd>
+        <dt data-i18n="faq.faq.q6">竹知了收费或有广告吗？</dt>
+        <dd data-i18n="faq.faq.a6">完全免费，无广告、无内购、无需注册，代码开源在 GitHub。</dd>
+        <dt data-i18n="faq.faq.q7">竹知了的声音是合成的还是真实录音？</dt>
+        <dd data-i18n="faq.faq.a7">主音源是真实竹知了玩具的录音采样，随转速改变回放速率；采样解码失败时才回退到 Web Audio 合成音。</dd>
+        <dt data-i18n="faq.faq.q8">可以离线玩吗？</dt>
+        <dd data-i18n="faq.faq.a8">可以。Service Worker 会缓存核心资源，也能“装进桌面”作为 PWA 使用。</dd>
+        <dt data-i18n="faq.faq.q9">竹知了会收集我的数据吗？</dt>
+        <dd data-i18n="faq.faq.a9">只统计匿名的全站哇数、访问数与在线人数；个人哇数仅存在浏览器本地，不收集个人身份信息。</dd>
       </dl>
     </section>
 
     <section aria-labelledby="sources">
-      <h2 id="sources">作者与资料来源</h2>
-      <p class="byline">作者 <a href="https://www.imsai.cc/" rel="author">imsai</a> · 发布于 <time datetime="2026-08-02">2026 年 8 月 2 日</time> · 更新于 <time datetime="2026-08-04">2026 年 8 月 4 日</time></p>
-      <p>页面音源由作者实地录制真实竹知了玩具取得，物理模型按实物三视图测量比例实现，代码完全开源可查证。</p>
+      <h2 id="sources" data-i18n="faq.sources.title">作者与资料来源</h2>
+      <p class="byline" id="byline" data-pub="2026-08-02" data-update="2026-08-04" data-author="imsai" data-author-url="https://www.imsai.cc/"></p>
+      <p data-i18n="faq.sources.desc">页面音源由作者实地录制真实竹知了玩具取得，物理模型按实物三视图测量比例实现，代码完全开源可查证。</p>
       <ul>
-        <li>发声原理参考：<a href="https://en.wikipedia.org/wiki/Stick-slip_phenomenon" rel="nofollow noopener" target="_blank">Stick-slip phenomenon（黏滑摩擦）</a></li>
-        <li>音频实现参考：<a href="https://developer.mozilla.org/docs/Web/API/Web_Audio_API" rel="nofollow noopener" target="_blank">Web Audio API — MDN</a></li>
-        <li>源代码与实现细节：<a href="https://github.com/imsai-sh/zhuzhiliao" rel="noopener" target="_blank">github.com/imsai-sh/zhuzhiliao</a></li>
+        <li><span data-i18n="faq.sources.ref1">发声原理参考：</span><a href="https://en.wikipedia.org/wiki/Stick-slip_phenomenon" rel="nofollow noopener" target="_blank">Stick-slip phenomenon（黏滑摩擦）</a></li>
+        <li><span data-i18n="faq.sources.ref2">音频实现参考：</span><a href="https://developer.mozilla.org/docs/Web/API/Web_Audio_API" rel="nofollow noopener" target="_blank">Web Audio API — MDN</a></li>
+        <li><span data-i18n="faq.sources.ref3">源代码与实现细节：</span><a href="https://github.com/imsai-sh/zhuzhiliao" rel="noopener" target="_blank">github.com/imsai-sh/zhuzhiliao</a></li>
       </ul>
     </section>
     </article>
@@ -606,42 +606,35 @@
     <path d="M10 2.5 A7.5 7.5 0 1 1 3.2 6.6" stroke="#f0e6d2" stroke-width="1.6" stroke-linecap="round"/>
     <path d="M2.6 2.8 L3.2 6.8 L7.1 5.6" stroke="#f0e6d2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </svg>
-  按住 · 画圈 · 甩起来
-  <span class="snd">🔊 有声音</span>
+  <span data-i18n="ui.hint.main">按住 · 画圈 · 甩起来</span>
+  <span class="snd" data-i18n="ui.hint.sound">🔊 有声音</span>
 </div>
 
 <div class="panel">
-  <div class="meter"><b id="rps">0.0</b><label>圈 / 秒</label></div>
-  <button id="motionBtn" style="display:none">甩手机</button>
-  <button id="autoBtn">自动甩</button>
-  <button id="d3Btn" style="display:none">3D 小蝉</button>
+  <div class="meter"><b id="rps">0.0</b><label data-i18n="ui.meter.rps">圈 / 秒</label></div>
+  <button id="motionBtn" style="display:none" data-i18n="ui.btn.motion">甩手机</button>
+  <button id="autoBtn" data-i18n="ui.btn.auto">自动甩</button>
+  <button id="d3Btn" style="display:none" data-i18n="ui.btn.d3Off">3D 小蝉</button>
 </div>
 
-<footer class="lore">竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣</footer>
+<footer class="lore"><span data-i18n="ui.lore.line1">竹膜为鼓 · 松香为弦</span><br><span data-i18n="ui.lore.line2">摩擦生振 · 膜腔共鸣</span></footer>
 
-<a class="ghlink" href="https://github.com/imsai-sh/zhuzhiliao" target="_blank" rel="noopener">开源 GitHub</a>
-<a class="ghlink author" href="https://www.imsai.cc/" target="_blank" rel="noopener">作者主页</a>
-<a class="ghlink install" id="installBtn" role="button">装进桌面</a>
+<a class="ghlink" href="https://github.com/imsai-sh/zhuzhiliao" target="_blank" rel="noopener" data-i18n="ui.btn.github">开源 GitHub</a>
+<a class="ghlink author" href="https://www.imsai.cc/" target="_blank" rel="noopener" data-i18n="ui.btn.author">作者主页</a>
+<a class="ghlink install" id="installBtn" role="button" data-i18n="ui.btn.install">装进桌面</a>
 
 <!-- 无 JS 环境（含不执行 JS 的爬虫）能读到的唯一正文；正常用户不可见 -->
 <noscript>
   <section style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:80vw;color:#f0e6d2;font-size:14px;line-height:2">
-    <h2>竹知了是什么？</h2>
-    <p>竹知了，很多地方也叫竹蝉、拉线蝉、知了哇呜，是一种一甩就“哇哇”叫的传统民间玩具：
-    竹筒一端蒙上竹膜，膜心系一根涂了松香的线，线的另一头拴在小竹签上。
-    抓着竹签甩起来转圈，线在松香上“黏—滑”交替摩擦，振动顺着线传到竹膜，
-    再经竹筒空腔共鸣放大，就是那声酷似知了的“哇——哇——”。</p>
-    <p>这里是它的网页模拟版，也就是“赛博竹知了”：按住屏幕画圈甩起来，转得越快叫得越响，声音来自真实竹知了的录音采样。
-    免费、无广告、开源，需要开启 JavaScript 才能玩。</p>
+    <h2 data-i18n="faq.noscript.title">竹知了是什么？</h2>
+    <p data-i18n="faq.noscript.p1">竹知了，很多地方也叫竹蝉、拉线蝉、知了哇呜，是一种一甩就“哇哇”叫的传统民间玩具：竹筒一端蒙上竹膜，膜心系一根涂了松香的线，线的另一头拴在小竹签上。抓着竹签甩起来转圈，线在松香上“黏—滑”交替摩擦，振动顺着线传到竹膜，再经竹筒空腔共鸣放大，就是那声酷似知了的“哇——哇——”。</p>
+    <p data-i18n="faq.noscript.p2">这里是它的网页模拟版，也就是“赛博竹知了”：按住屏幕画圈甩起来，转得越快叫得越响，声音来自真实竹知了的录音采样。免费、无广告、开源，需要开启 JavaScript 才能玩。</p>
   </section>
 </noscript>
 
-<div class="unlock" id="unlock" hidden>🔊 点一下开声</div>
+<div class="unlock" id="unlock" hidden data-i18n="ui.unlock.tap">🔊 点一下开声</div>
 
-<div class="stats" id="stats" hidden>
-  此刻 <b id="stOnline">–</b> 人 · 来客 <b id="stVisitors">–</b> · 访问 <b id="stVisits">–</b>
-  · 全球 <b id="stWahs">–</b> 哇 · <span class="mine" id="stMineWrap">我 <b id="stMine">0</b> 哇</span>
-</div>
+<div class="stats" id="stats" hidden></div>
 
 <script>
 'use strict';
@@ -651,6 +644,104 @@
    声学：首选真实竹知了录音采样(转速驱动回放速率)；
          解码失败回退合成链(锯齿波→调幅→扫频带通→共振峰)
    ============================================================ */
+
+/* ============================================================
+   i18n 引导：经典脚本里用动态 import() 加载 ESM 模块。
+   - 先给全局 I18N 一个兜底对象（t 返回中文 key 对应的页面原始文案），
+     保证 i18n 模块加载完成前的同步代码引用 I18N.t(...) 不报错；
+   - 模块加载完成后替换为真实实例，应用译文并监听语言切换。
+   - ENABLE_I18N=false 时仍加载（仅 fallback），但行为等同改造前中文。
+   ============================================================ */
+window.I18N = {
+  _ready: false,
+  t(key, params){
+    // 兜底：对关键模板返回中文原文，其余返回 key（i18n 加载完成后被真实实例覆盖）
+    if(key === 'ui.stats.tmpl') return '此刻 {online} 人 · 来客 {visitors} · 访问 {visits} · 全球 {wahs} 哇 · 我 {mine} 哇';
+    return key;
+  },
+  interpolate(str, params){
+    if(!params) return str;
+    return str.replace(/\{(\w+)\}/g, (m, n) => Object.prototype.hasOwnProperty.call(params, n) ? String(params[n]) : m);
+  },
+  formatDate(d){ return new Date(d).toLocaleDateString('zh-CN'); },
+  getLocale(){ return 'zh-cn'; },
+};
+// 记录按钮态，切换语言后需刷新
+function refreshBtnLabels(){
+  if(typeof autoBtn !== 'undefined') autoBtn.textContent = auto.on ? window.I18N.t('ui.btn.autoOff') : window.I18N.t('ui.btn.auto');
+  if(typeof motionBtn !== 'undefined') motionBtn.textContent = motion.on ? window.I18N.t('ui.btn.motionOff') : window.I18N.t('ui.btn.motion');
+  if(typeof d3Btn !== 'undefined') d3Btn.textContent = use3d ? window.I18N.t('ui.btn.d3On') : window.I18N.t('ui.btn.d3Off');
+}
+// 富文本插槽渲染：译文里 {brand} {cyber} 占位 → <strong> 文本节点
+function applyRichTranslations(){
+  document.querySelectorAll('[data-i18n-rich]').forEach((el) => {
+    const key = el.getAttribute('data-i18n-rich');
+    const strongKeys = (el.getAttribute('data-i18n-rich-strong') || '').split(':').filter(Boolean);
+    let tmpl = window.I18N.t(key);
+    if(!tmpl || tmpl === key){ return; } // 未命中，保留原文
+    el.textContent = '';
+    // 用占位符拆分，逐段插入 textNode 和 strong
+    const re = /\{(brand|cyber)\}/g;
+    let last = 0, m;
+    while((m = re.exec(tmpl))){
+      if(m.index > last) el.appendChild(document.createTextNode(tmpl.slice(last, m.index)));
+      const placeholder = m[1];
+      // brand/cyber 映射到 strongKeys[0]/[1]
+      const idx = placeholder === 'brand' ? 0 : 1;
+      const sk = strongKeys[idx];
+      const s = document.createElement('strong');
+      s.textContent = sk ? window.I18N.t(sk) : placeholder;
+      el.appendChild(s);
+      last = re.lastIndex;
+    }
+    if(last < tmpl.length) el.appendChild(document.createTextNode(tmpl.slice(last)));
+  });
+}
+// byline 渲染：作者链接 + 本地化日期
+function renderByline(){
+  const el = document.getElementById('byline');
+  if(!el) return;
+  const author = el.getAttribute('data-author') || 'imsai';
+  const authorUrl = el.getAttribute('data-author-url') || '#';
+  const pub = el.getAttribute('data-pub');
+  const update = el.getAttribute('data-update');
+  const pubStr = pub ? window.I18N.formatDate(new Date(pub)) : '';
+  const updateStr = update ? window.I18N.formatDate(new Date(update)) : '';
+  el.textContent = '';
+  const tmpl = window.I18N.interpolate(
+    window.I18N.t('faq.sources.byline'),
+    { author, pub: pubStr, update: updateStr }
+  );
+  // byline 模板里有 {author} 需替换成链接——但为保持简单，author 作为纯文本插入
+  // （链接地址已在外部使用，这里 byline 的 author 用文本即可，原文也是“作者 imsai”）
+  el.textContent = tmpl;
+}
+// 动态加载 i18n 模块
+import('./i18n/i18n.js').then(({ init, applyTranslations, setLocale, getLocale, setReportError, LOCALE_EVENT }) => {
+  return init().then(() => {
+    // 用真实实例覆盖兜底对象（保持 window.I18N 引用不变，同步代码无需改）
+    return import('./i18n/i18n.js').then((mod) => {
+      Object.assign(window.I18N, mod);
+      window.I18N._ready = true;
+      applyTranslations();
+      applyRichTranslations();
+      renderByline();
+      if(typeof stEls !== 'undefined' && stEls.build){ stEls.build(); }
+      refreshBtnLabels();
+      // 监听语言切换：刷新全部译文 + 按钮 + 统计行
+      window.addEventListener(LOCALE_EVENT, () => {
+        applyTranslations();
+        applyRichTranslations();
+        renderByline();
+        if(typeof stEls !== 'undefined' && stEls.build) stEls.build();
+        refreshBtnLabels();
+      });
+    });
+  });
+}).catch((e) => {
+  // i18n 加载失败（如 file:// 或资源 404）：静默回落，页面仍用 HTML 原始中文
+  if(typeof console !== 'undefined') console.warn('[i18n] load failed, fallback to inline zh-CN', e);
+});
 
 // roundRect 需 Safari 16+/Chrome 99+，旧内核补一个 arcTo 实现避免整页崩掉
 if(!('roundRect' in CanvasRenderingContext2D.prototype)){
@@ -1077,7 +1168,7 @@ function update(dt){
       // 开了体感却收不到传感器事件(权限/环境问题)，2.5s 后自动退出并提示
       if(!motion.gotEvent && performance.now() - motion.enabledAt > 2500){
         setMotion(false);
-        flashBtn(motionBtn, '不可用');
+        flashBtn(motionBtn, 'ui.btn.motionUnavailable');
       }else{
         const cx = W*0.5, cy = H*0.42;
         const R = Math.min(W, H)*0.22;
@@ -1290,7 +1381,7 @@ function draw(now, dt){
     ctx.shadowColor = 'rgba(255,150,60,0.9)';
     ctx.shadowBlur = 18*(1 - t);
     ctx.fillStyle = '#ffb066';
-    ctx.fillText('哇', 0, 0);
+    ctx.fillText(I18N.t('ui.cry.wah'), 0, 0);
     ctx.shadowBlur = 0;
     ctx.restore();
   }
@@ -1456,7 +1547,7 @@ function toyScale(){ return clamp(Math.min(W, H)*0.155, 64, 88); }  // 筒身高
 function set3d(on){
   use3d = !!(on && toy3d);
   d3Btn.classList.toggle('on', use3d);
-  d3Btn.textContent = use3d ? '手绘小蝉' : '3D 小蝉';
+  d3Btn.textContent = use3d ? I18N.t('ui.btn.d3On') : I18N.t('ui.btn.d3Off');
   cv3d.style.display = use3d ? '' : 'none';
   try{ localStorage.setItem('zzl_3d', use3d ? '1' : '0'); }catch(_){}
 }
@@ -1494,7 +1585,7 @@ function frame(now){
 function setAuto(on){
   auto.on = on;
   autoBtn.classList.toggle('on', on);
-  autoBtn.textContent = on ? '停一停' : '自动甩';
+  autoBtn.textContent = on ? I18N.t('ui.btn.autoOff') : I18N.t('ui.btn.auto');
   if(on){
     interacted = true;
     if(motion.on) setMotion(false);
@@ -1519,10 +1610,10 @@ if(typeof DeviceMotionEvent !== 'undefined' && 'ontouchstart' in window && windo
   motionBtn.style.display = '';
 }
 
-function flashBtn(btn, text){
-  btn.textContent = text;
+function flashBtn(btn, key){
+  btn.textContent = I18N.t(key);
   btn.disabled = true;
-  setTimeout(() => { btn.textContent = '甩手机'; btn.disabled = false; }, 1600);
+  setTimeout(() => { btn.textContent = I18N.t('ui.btn.motion'); btn.disabled = false; }, 1600);
 }
 
 async function setMotion(on){
@@ -1530,12 +1621,12 @@ async function setMotion(on){
         && typeof DeviceMotionEvent.requestPermission === 'function'){
     try{
       const r = await DeviceMotionEvent.requestPermission();  // iOS 需授权
-      if(r !== 'granted'){ flashBtn(motionBtn, '未授权'); return; }
-    }catch(_){ flashBtn(motionBtn, '未授权'); return; }
+      if(r !== 'granted'){ flashBtn(motionBtn, 'ui.btn.motionUnauthorized'); return; }
+    }catch(_){ flashBtn(motionBtn, 'ui.btn.motionUnauthorized'); return; }
   }
   motion.on = on;
   motionBtn.classList.toggle('on', on);
-  motionBtn.textContent = on ? '停一停' : '甩手机';
+  motionBtn.textContent = on ? I18N.t('ui.btn.motionOff') : I18N.t('ui.btn.motion');
   if(on){
     interacted = true;
     if(auto.on) setAuto(false);
@@ -1651,12 +1742,47 @@ const API_ORIGIN = 'https://zhuzhiliao.imsai.cc';
 
 const stEls = {
   root: document.getElementById('stats'),
-  online: document.getElementById('stOnline'),
-  visitors: document.getElementById('stVisitors'),
-  visits: document.getElementById('stVisits'),
-  wahs: document.getElementById('stWahs'),
-  mine: document.getElementById('stMine'),
-  mineWrap: document.getElementById('stMineWrap'),
+  online: null, visitors: null, visits: null, wahs: null, mine: null, mineWrap: null,
+  // 按 ui.stats.tmpl 模板重建统计行 DOM，保留各 <b> 的 id 与 .mine 结构，
+  // 使 renderStats/renderMine/动效逻辑不依赖固定中文文案。
+  build(){
+    const root = this.root;
+    if(!root) return;
+    root.textContent = '';
+    const tmpl = I18N.t('ui.stats.tmpl', {});
+    const SLOT = ['online','visitors','visits','wahs','mine'];
+    // 按 {slot} 切分模板，逐段插入 textNode 与对应的 <b>（mine 外包 .mine span）
+    const re = /\{(online|visitors|visits|wahs|mine)\}/g;
+    let last = 0, m;
+    while((m = re.exec(tmpl))){
+      if(m.index > last) root.appendChild(document.createTextNode(tmpl.slice(last, m.index)));
+      const slot = m[1];
+      if(slot === 'mine'){
+        const wrap = document.createElement('span');
+        wrap.className = 'mine';
+        wrap.id = 'stMineWrap';
+        wrap.appendChild(document.createTextNode(''));
+        const b = document.createElement('b');
+        b.id = 'stMine';
+        b.textContent = '0';
+        wrap.appendChild(b);
+        wrap.appendChild(document.createTextNode(''));
+        root.appendChild(wrap);
+        this.mineWrap = wrap;
+        this.mine = b;
+      }else{
+        const b = document.createElement('b');
+        b.id = 'st' + slot.charAt(0).toUpperCase() + slot.slice(1);
+        b.textContent = '–';
+        root.appendChild(b);
+        this[slot] = b;
+      }
+      last = re.lastIndex;
+    }
+    if(last < tmpl.length) root.appendChild(document.createTextNode(tmpl.slice(last)));
+    // 初始填充
+    this.mine.textContent = String(myWah || 0);
+  }
 };
 
 let uid = '', myWah = 0;
@@ -1744,6 +1870,7 @@ function addWah(n){
   }
 }
 
+stEls.build();          // i18n 未就绪时用兜底中文模板构建；就绪后在 localechange 里重建
 stEls.root.hidden = false;
 renderMine();
 wsConnect();
@@ -1780,9 +1907,25 @@ const installBtn = document.getElementById('installBtn');
     if(tip){ tip.remove(); tip = null; return; }
     tip = document.createElement('div');
     tip.className = 'installtip';
-    tip.innerHTML = isIOS
-      ? '用 Safari 打开本页<br>点分享 <b>&#x2191;</b> → 「添加到主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>'
-      : '安卓 Chrome/Edge：菜单 &#8942; → 「安装应用」或「添加到主屏幕」<br>桌面 Chrome：地址栏右侧安装图标<br>Safari：分享 → 「添加到程序坞/主屏幕」<br><span style="opacity:.6;font-size:12px">(点此关闭)</span>';
+    // 富文本引导：用 DOM API 逐行构建，禁用 innerHTML（安全要求 #1）。
+    // 占位符 {arrow}/{dots} 对应原 HTML 实体 ↑ 与 ⋮，作为纯文本插入。
+    const mkLine = (txt) => { const d = document.createElement('div'); d.textContent = txt; return d; };
+    const mkClose = () => {
+      const s = document.createElement('span');
+      s.style.cssText = 'opacity:.6;font-size:12px';
+      s.textContent = isIOS ? I18N.t('ui.installTip.iosClose') : I18N.t('ui.installTip.close');
+      return s;
+    };
+    if(isIOS){
+      tip.appendChild(mkLine(I18N.t('ui.installTip.iosLine1')));
+      tip.appendChild(mkLine(I18N.interpolate(I18N.t('ui.installTip.iosLine2'), { arrow: '↑' })));
+      tip.appendChild(mkClose());
+    }else{
+      tip.appendChild(mkLine(I18N.interpolate(I18N.t('ui.installTip.androidLine1'), { dots: '⋮' })));
+      tip.appendChild(mkLine(I18N.t('ui.installTip.androidLine2')));
+      tip.appendChild(mkLine(I18N.t('ui.installTip.androidLine3')));
+      tip.appendChild(mkClose());
+    }
     tip.addEventListener('click', () => { tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); });
     document.body.appendChild(tip);
     setTimeout(() => { if(tip){ tip.classList.add('gone'); setTimeout(() => { tip && tip.remove(); tip = null; }, 400); } }, 8000);
