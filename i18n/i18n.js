@@ -131,17 +131,22 @@ export function detectLocale(env) {
   } catch (_) { /* 访问 location 可能抛错，忽略继续 */ }
 
   // 1b. URL pathname 语言前缀（SEO 多语言子路径协调）
-  //     /en/ /ja/ /ko/ 表示用户明确访问某语言版本；根路径 / 无前缀，跳过。
-  //     这保证爬虫抓到的静态 HTML 语言与运行时 i18n 语言一致，避免 localStorage 记忆导致的串语言。
+  //     /en/ /ja/ /ko/ 表示用户明确访问某语言版本；根路径 / 无前缀，锁定中文。
+  //     根路径 / 是中文版首页（SEO 语义），不因浏览器语言自动切成其他语言，
+  //     但保留 ?lang= 显式覆盖与 localStorage 记忆（用户手动切过语言就记住）。
+  //     想看其他语言请访问对应子路径 /en/ /ja/ /ko/ 或用 ?lang= 参数。
+  let rootLocked = false;
   try {
     const loc = e.location || (!useStubs && typeof location !== 'undefined' ? location : null);
     if (loc && typeof loc.pathname === 'string') {
       const m = loc.pathname.match(/^\/(en|ja|ko)(\/|$)/);
       if (m) return { locale: m[1], source: 'pathname', raw: m[1] };
+      // 根路径（无语言前缀）：锁定中文，跳过 navigator 自动检测
+      rootLocked = true;
     }
   } catch (_) { /* ignore */ }
 
-  // 2. localStorage
+  // 2. localStorage（根路径仍允许记忆的偏好覆盖，支持用户手动切换后持久化）
   try {
     let raw = null;
     if (useStubs) {
@@ -152,12 +157,16 @@ export function detectLocale(env) {
     if (raw) {
       const hit = normalizeLocale(raw);
       if (hit) return { locale: hit, source: 'localStorage', raw };
-      // 已下线/非法：交给宿主清理（这里只检测不写，避免检测有副作用）
       devLog({ level: 'warn', event: 'detect.ls.invalid', raw });
     }
   } catch (_) { /* SecurityError 等忽略 */ }
 
-  // 3. navigator.languages
+  // 根路径锁定：跳过 navigator 自动检测，直接 fallback（中文）
+  if (rootLocked) {
+    return { locale: FALLBACK, source: 'root-locked', reason: 'root-path-keeps-zh' };
+  }
+
+  // 3. navigator.languages（仅当无 location 桩的测试场景，或异常情况触达）
   try {
     const langs = useStubs ? e.languages
       : (typeof navigator !== 'undefined' ? navigator.languages : null);

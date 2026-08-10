@@ -97,10 +97,21 @@ describe('detectLocale', () => {
     assert.equal(r.locale, 'ko');
     assert.equal(r.source, 'pathname');
   });
-  test('根路径 / 无语言前缀，pathname 检测跳过', () => {
-    const r = detectLocale({ location: { search: '', pathname: '/' }, lsGet: () => 'ja', languages: ['en-US'] });
-    assert.equal(r.locale, 'ja'); // 走 localStorage
+  test('根路径 / 锁定中文（不因浏览器语言自动切换）', () => {
+    // 根路径 / 即使浏览器是 en-US、localStorage 无偏好，也锁定 zh-cn
+    const r = detectLocale({ location: { search: '', pathname: '/' }, lsGet: () => null, languages: ['en-US'] });
+    assert.equal(r.locale, 'zh-cn');
+    assert.equal(r.source, 'root-locked');
+  });
+  test('根路径 / 仍允许 localStorage 偏好覆盖（用户手动切换后持久化）', () => {
+    const r = detectLocale({ location: { search: '', pathname: '/' }, lsGet: (k) => (k === 'app_locale' ? 'ja' : null), languages: ['en-US'] });
+    assert.equal(r.locale, 'ja');
     assert.equal(r.source, 'localStorage');
+  });
+  test('根路径 / 仍允许 ?lang= 显式覆盖', () => {
+    const r = detectLocale({ location: { search: '?lang=ko', pathname: '/' }, lsGet: () => null, languages: ['en-US'] });
+    assert.equal(r.locale, 'ko');
+    assert.equal(r.source, 'url');
   });
   test('localStorage 次优先级', () => {
     const r = detectLocale({ location: { search: '' }, lsGet: (k) => (k === 'app_locale' ? 'ko' : null), languages: ['en-US'] });
