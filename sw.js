@@ -2,12 +2,17 @@
    策略：导航请求网络优先（部署后必拿新版，断网回退缓存）；
    静态资源 stale-while-revalidate（先出缓存秒开，后台自动更新，无需手动版本号）；
    /api/* 一律直连不缓存。 */
-const CACHE = 'zzl-v1';
+const CACHE = 'zzl-v2';
 const CORE = [
   './', './manifest.webmanifest', './apple-touch-icon.png',
   './icon-192.png', './icon-512.png',
   './3d/boot3d.js', './3d/model.js',
   './3d/vendor/three.module.min.js', './3d/vendor/OrbitControls.js',
+  './i18n/i18n.js?v=2',
+  './locales/zh-cn/ui.json', './locales/zh-cn/faq.json', './locales/zh-cn/error.json',
+  './locales/en/ui.json', './locales/en/faq.json', './locales/en/error.json',
+  './locales/ja/ui.json', './locales/ja/faq.json', './locales/ja/error.json',
+  './locales/ko/ui.json', './locales/ko/faq.json', './locales/ko/error.json',
 ];
 
 self.addEventListener('install', e => {
