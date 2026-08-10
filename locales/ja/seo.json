@@ -1,0 +1,151 @@
+{
+  "title": "サイバー Zhuzhiliao · 回せばワーワー鳴く｜無料で遊べる竹セミ Web おもちゃ",
+  "description": "サイバー Zhuzhiliao：竹セミ（引糸セミ）など伝統的な民間玩具の、依存関係ゼロのウェブシミュレーション版です。押して丸く振ると、回るほど大きく鳴ります。実録サンプルと物理シミュレーションを組み合わせ、ブラウザで無料・インストール不要で遊べます。",
+  "keywords": "Zhuzhiliao,サイバー Zhuzhiliao,竹セミ,引糸セミ,ワーワーゼミ,伝統玩具,民間玩具,Web おもちゃ,無料ゲーム,インストール不要",
+  "appName": "Zhuzhiliao",
+  "ogLocale": "ja_JP",
+  "ogTitle": "サイバー Zhuzhiliao · 回せばワーワー鳴く",
+  "ogDescription": "振るとワーワー鳴る竹セミを覚えていますか？押して丸く振ると、回るほど大きく鳴ります。無料のウェブ版、ダウンロード不要、すぐに遊べます。",
+  "ogImageAlt": "深い青の夜空を背景にした Zhuzhiliao：紐で繋がれた小さな竹のセミが円を描いて振られている",
+  "twitterDescription": "伝統的な竹セミ玩具のウェブシミュレーション版：押して丸く振ると、回るほど大きく鳴ります。無料、ダウンロード不要、すぐに遊べます。",
+  "llmsTitle": "Zhuzhiliao · AI 要約（llms.txt）",
+  "jsonld": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{site}}/#website",
+        "url": "{{site}}/",
+        "name": "Zhuzhiliao",
+        "alternateName": ["サイバー Zhuzhiliao", "竹セミ"],
+        "inLanguage": "ja",
+        "publisher": { "@id": "https://www.imsai.cc/#person" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{site}}/#webpage",
+        "url": "{{site}}/",
+        "name": "サイバー Zhuzhiliao · 回せばワーワー鳴く｜無料で遊べる竹セミ Web おもちゃ",
+        "description": "サイバー Zhuzhiliao：竹セミ（引糸セミ）など伝統的な民間玩具の、依存関係ゼロのウェブシミュレーション版です。押して丸く振ると、回るほど大きく鳴ります。実録サンプルと物理シミュレーションを組み合わせ、ブラウザで無料・インストール不要で遊べます。",
+        "inLanguage": "ja",
+        "isPartOf": { "@id": "{{site}}/#website" },
+        "primaryImageOfPage": { "@id": "{{site}}/#primaryimage" },
+        "datePublished": "2026-08-02",
+        "dateModified": "2026-08-04",
+        "author": { "@id": "https://www.imsai.cc/#person" },
+        "mainEntity": { "@id": "{{site}}/#app" },
+        "breadcrumb": { "@id": "{{site}}/#breadcrumb" },
+        "keywords": "Zhuzhiliao,サイバー Zhuzhiliao,竹セミ,引糸セミ,ワーワーゼミ,伝統玩具,民間玩具",
+        "speakable": { "@type": "SpeakableSpecification", "cssSelector": ["#main-content h2", "#main-content p"] },
+        "about": [
+          { "@type": "Thing", "name": "Zhuzhiliao", "alternateName": ["サイバー Zhuzhiliao", "竹セミ", "引糸セミ"], "description": "振るとワーワー鳴る中国の伝統的な民間玩具。松やにを塗った糸がスティック・スリップ摩擦を起こして竹の膜を振動させ、竹筒の空洞が共鳴して増幅します。" },
+          { "@type": "Thing", "name": "中国の伝統的な民間玩具", "description": "竹、木、紙、粘土などで手作りされる民間の遊具。竹セミは音が出る種類の一つです。" },
+          { "@type": "Thing", "name": "スティック・スリップ現象", "sameAs": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon" }
+        ],
+        "citation": [
+          { "@type": "CreativeWork", "name": "Stick-slip phenomenon", "url": "https://en.wikipedia.org/wiki/Stick-slip_phenomenon" },
+          { "@type": "CreativeWork", "name": "Web Audio API — MDN", "url": "https://developer.mozilla.org/docs/Web/API/Web_Audio_API" }
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "{{site}}/#primaryimage",
+        "url": "https://zzl.tanranran.cn/og-image.jpg",
+        "contentUrl": "https://zzl.tanranran.cn/og-image.jpg",
+        "width": 1200,
+        "height": 630,
+        "caption": "深い青の夜空を背景にした Zhuzhiliao：紐で繋がれた小さな竹のセミが円を描いて振られている",
+        "inLanguage": "ja"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "{{site}}/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Zhuzhiliao", "item": "{{site}}/" }
+        ]
+      },
+      {
+        "@type": ["WebApplication", "VideoGame"],
+        "@id": "{{site}}/#app",
+        "name": "Zhuzhiliao",
+        "alternateName": ["サイバー Zhuzhiliao", "竹セミ", "引糸セミ"],
+        "url": "{{site}}/",
+        "description": "伝統的な民間玩具「Zhuzhiliao」（竹セミ／引糸セミ）の、依存関係ゼロのウェブシミュレーション版。「サイバー Zhuzhiliao」とも呼ばれます。振るとワーワー鳴る竹筒玩具で、実物の物理シミュレーションと実録サンプルを組み合わせ、回るほど大きく鳴ります。無料・広告なし・インストール不要で、スマホとパソコンのブラウザで開くだけで遊べ、コードは公開されています。",
+        "inLanguage": "ja",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "JavaScript、HTML5 Canvas、Web Audio に対応したモダンなブラウザ",
+        "gamePlatform": ["Web Browser", "Mobile", "Desktop"],
+        "genre": ["カジュアル", "玩具シミュレーション"],
+        "playMode": "https://schema.org/SinglePlayer",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY", "availability": "https://schema.org/InStock" },
+        "image": "https://zzl.tanranran.cn/og-image.jpg",
+        "screenshot": { "@type": "ImageObject", "url": "https://zzl.tanranran.cn/og-image.jpg", "inLanguage": "ja" },
+        "datePublished": "2026-08-02",
+        "dateModified": "2026-08-04",
+        "featureList": [
+          "押して丸く振ると鳴り、回転が速いほど音が大きく速くなります",
+          "ハンズフリーの自動回転モード",
+          "対応端末でのスマホ振りモーションモード（HTTPS とセンサー許可が必要）",
+          "オプションの 3D WebGL セミレイヤー（2D への自動フォールバック付き）",
+          "全サイトリアルタイムのワー数カウントとオンライン人数",
+          "PWA としてインストールしてオフラインで遊べる"
+        ],
+        "author": { "@id": "https://www.imsai.cc/#person" },
+        "publisher": { "@id": "https://www.imsai.cc/#person" },
+        "creator": { "@id": "https://www.imsai.cc/#person" },
+        "sameAs": ["https://github.com/imsai-sh/zhuzhiliao"],
+        "softwareHelp": { "@id": "{{site}}/#how-to-play" },
+        "license": "https://github.com/imsai-sh/zhuzhiliao",
+        "keywords": "Zhuzhiliao,サイバー Zhuzhiliao,竹セミ,引糸セミ,伝統玩具,民間玩具,Web おもちゃ,オンラインゲーム",
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "{{site}}/#how-to-play",
+        "name": "Zhuzhiliao の遊び方",
+        "description": "画面の竹串を押さえて円を描くように振ります。回転が速いほど、Zhuzhiliao は大きく鳴ります。",
+        "totalTime": "PT1M",
+        "estimatedCost": { "@type": "MonetaryAmount", "currency": "CNY", "value": "0" },
+        "tool": { "@type": "HowToTool", "name": "HTML5 Canvas と Web Audio に対応した任意のブラウザ" },
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "inLanguage": "ja",
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "串を押さえる", "text": "画面の竹串を押さえます。" },
+          { "@type": "HowToStep", "position": 2, "name": "円を描いて振る", "text": "円を描くように振ります。回転が速いほど、音は大きく速くなります。" },
+          { "@type": "HowToStep", "position": 3, "name": "他のモードを試す", "text": "「自動で回す」をタップするか、対応端末で「スマホを振る」モーションモードも使えます。" }
+        ],
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "{{site}}/#faq",
+        "inLanguage": "ja",
+        "mainEntityOfPage": { "@id": "{{site}}/#webpage" },
+        "mainEntity": [
+          { "@type": "Question", "name": "Zhuzhiliao をダウンロードやインストールする必要がありますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。ビルドも依存関係も不要で、ブラウザで開くだけで遊べます。メインページは保存してオフラインでも開けます。" } },
+          { "@type": "Question", "name": "最初はなぜ音が鳴らないのですか？", "acceptedAnswer": { "@type": "Answer", "text": "ブラウザは通常、音を鳴らす前にユーザーのクリックやタッチを要求します。画面をタップするか、「タップで音を鳴らす」で解除できます。" } },
+          { "@type": "Question", "name": "なぜ「スマホを振る」モードが使えないのですか？", "acceptedAnswer": { "@type": "Answer", "text": "このモードはモーションセンサーに依存し、HTTPS またはローカルファイルが必要です。iPhone では初回使用時に許可が必要な場合があります。" } },
+          { "@type": "Question", "name": "Zhuzhiliao はどんな玩具ですか？", "acceptedAnswer": { "@type": "Answer", "text": "Zhuzhiliao は中国の伝統的な民間玩具で、地域によって竹セミや引糸セミ、ワーワーゼミとも呼ばれます。竹筒の片端に膜を張り、膜の中心に松やにを塗った糸を結び、もう片方を小さな竹串に結びます。串を持って円を描くように振ると、糸が松やにの上でスティック・スリップ摩擦を起こし、膜が振動し、竹筒の空洞が共鳴して、セミの鳴き声に似た「ワーワー」という音を出します。" } },
+          { "@type": "Question", "name": "サイバー Zhuzhiliao とは？", "acceptedAnswer": { "@type": "Answer", "text": "「サイバー Zhuzhiliao」は、こうしたウェブシミュレーション版に対するネット上の呼び名です。実物の竹筒を買わなくても、ブラウザで押して回すだけで、実物の Zhuzhiliao 録音サンプルと同じ「ワーワー」音が聞こえます。" } },
+          { "@type": "Question", "name": "Zhuzhiliao は有料ですか？広告はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "完全無料、広告なし、課金なし、登録不要です。コードは GitHub（imsai-sh/zhuzhiliao）で公開されています。" } },
+          { "@type": "Question", "name": "音は合成ですか、それとも実録ですか？", "acceptedAnswer": { "@type": "Answer", "text": "主音源は実物の Zhuzhiliao 玩具の録音サンプルで、ページ内にシームレスなループとして埋め込まれ、回転速度に応じて再生速度が変わります。サンプルのデコードに失敗した場合のみ、Web Audio 合成音にフォールバックします。" } },
+          { "@type": "Question", "name": "オフラインで遊べますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。Service Worker が主要リソースをキャッシュし、PWA としてデスクトップにインストールすることもできます。index.html をローカルに保存してブラウザで開いても遊べます。" } },
+          { "@type": "Question", "name": "Zhuzhiliao はデータを収集しますか？", "acceptedAnswer": { "@type": "Answer", "text": "サイト全体の匿名のワー数、アクセス数、オンライン人数のみを集計します。個人のワー数はブラウザの localStorage にのみ保存され、ログインや個人識別情報の収集はありません。" } }
+        ],
+        "isPartOf": { "@id": "{{site}}/#website" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.imsai.cc/#person",
+        "name": "imsai",
+        "url": "https://www.imsai.cc/",
+        "description": "独立開発者であり、Zhuzhiliao ウェブシミュレーションの作者。実物の Zhuzhiliao 玩具の音源を現地録音し、その紐付き質点物理モデルを実装しています。",
+        "knowsAbout": ["伝統的な民間玩具", "Web Audio", "物理シミュレーション", "フロントエンド開発"],
+        "sameAs": ["https://github.com/imsai-sh"]
+      }
+    ]
+  }
+}
