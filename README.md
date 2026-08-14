@@ -107,6 +107,14 @@ python3 -m http.server 8123
 - 把 <https://imsai.top> 甩给一个也玩过竹知了的人，看他愣两秒
 - 有 Bug、有想法、有更像真玩具的调参，欢迎提 Issue / PR
 
+<a href="https://www.star-history.com/#imsai-sh/zhuzhiliao&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=imsai-sh/zhuzhiliao&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=imsai-sh/zhuzhiliao&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=imsai-sh/zhuzhiliao&type=Date" />
+  </picture>
+</a>
+
 ## 许可与声明
 
 **本项目不是 OSI 意义上的开源项目。** 源码公开是为了技术分享，完整条款见 [LICENSE](LICENSE)：
