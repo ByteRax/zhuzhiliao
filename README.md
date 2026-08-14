@@ -2,12 +2,17 @@
 
 一转就"哇哇"叫的传统玩具，Web 模拟版。零依赖单文件，手机优先。
 
-**在线试玩：<https://zhuzhiliao.icu>**
+**在线试玩：<https://imsai.top>**
+
+> [!TIP]
+> **新开源项目：[Awesome DeepSeek Harness Plugins](https://github.com/imsai-sh/awesome-deepseek-harness-plugins)**
+>
+> 面向 DeepSeek harness 插件生态的 Awesome 清单，欢迎 Star 和共建。
 
 > [!CAUTION]
-> **本项目不是开源项目，未授权任何人再分发或公开部署。**
+> **本项目未授权任何人再分发或公开部署。**
 >
-> 官方站点只有 <https://zhuzhiliao.icu>，**其他任何域名上的部署都未经授权**。
+> 官方站点只有 <https://imsai.top>，**其他任何域名上的部署都未经授权**。
 >
 > 已发现有人擅自修改本项目代码后公开部署，包括将页面中作者原创的手绘小蝉形象替换为
 > 真实人物形象。此类衍生版本与本项目及作者没有任何关系，作者未参与、未授权、也不
@@ -17,7 +22,7 @@
 > 源码公开仅供学习交流，权利范围见 [LICENSE](LICENSE)。
 >
 > *This project is NOT open source. Redistribution and public deployment are not
-> permitted. The only official site is <https://zhuzhiliao.icu> — any deployment
+> permitted. The only official site is <https://imsai.top> — any deployment
 > on another domain is unauthorized and unaffiliated with this project or its author,
 > who bears no responsibility for its content. See [LICENSE](LICENSE).*
 
@@ -99,7 +104,7 @@ python3 -m http.server 8123
 做法有点意思：
 
 - 点个 [⭐ Star](https://github.com/imsai-sh/zhuzhiliao/stargazers) —— Star 多了才排得上 GitHub 的搜索和推荐
-- 把 <https://zhuzhiliao.icu> 甩给一个也玩过竹知了的人，看他愣两秒
+- 把 <https://imsai.top> 甩给一个也玩过竹知了的人，看他愣两秒
 - 有 Bug、有想法、有更像真玩具的调参，欢迎提 Issue / PR
 
 ## 许可与声明
@@ -112,7 +117,7 @@ python3 -m http.server 8123
 - **内容限制**：不得用本项目或其修改版制作、传播侵犯他人合法权益的内容，包括未经许可
   使用真实人物的姓名、肖像、声音或其他人格标识；违反者许可自动终止
 
-官方站点只有 <https://zhuzhiliao.icu>，其他域名上的部署均未经授权，与本项目和作者
+官方站点只有 <https://imsai.top>，其他域名上的部署均未经授权，与本项目和作者
 无关——详见[页首声明](#竹知了)。需要超出上述范围的授权，请先联系作者取得书面许可。
 
 ### 关于 Issue 与讨论区
